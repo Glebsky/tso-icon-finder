@@ -56,3 +56,15 @@ The project is fully optimized and ready for immediate deployment on [Vercel](ht
    - Configurable page sizes: 30, 60, 120, 240, 500 or "All icons" on a single page.
    - Quick page jump navigation.
    - Dark and Light theme toggle.
+4. **Multilingual (i18n)**:
+   - Full support for 4 languages: **English (default)**, **Russian**, **Ukrainian**, and **German**.
+   - Quick header switcher with persistent preference (`localStorage`) and query string sync (`?lang=en|ru|uk|de`).
+   - Preserves raw untranslated `XML Name / ID` for developer convenience.
+5. **PWA & Offline Worker**:
+   - Installable Progressive Web App (`manifest.webmanifest`) with thematic Settlers Online dark slate palette (`#0f172a`).
+   - Service Worker (`sw.js`) enabling offline browsing, app shell caching, and immutable icon asset storage.
+   - Multi-resolution favicons (`.ico`, `.svg`, `32x32`, `16x16`), maskable icons (192x192, 512x512), and Apple Touch Icon.
+6. **SEO & Social Previews (Open Graph)**:
+   - Full Open Graph and Twitter Cards meta tags.
+   - Custom 1200×630 social preview card (`og-image.png`) with crisp icon montages and feature badges.
+   - Schema.org `WebApplication` JSON-LD metadata.

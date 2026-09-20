@@ -1,9 +1,68 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TSO Icon Finder — Поиск и скачивание иконок</title>
+
+  <!-- Primary Meta Tags & SEO -->
+  <title>TSO Icon Finder — Search & Download The Settlers Online Icons</title>
+  <meta name="title" content="TSO Icon Finder — Search & Download The Settlers Online Icons">
+  <meta name="description" id="metaDescription" content="Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 7,880+ Settlers Online icons: buildings, buffs, adventures, and resources.">
+  <meta name="keywords" content="The Settlers Online, TSO, icons, settlers online icons, tso assets, tso icon finder, tso database, game assets, settlers online wiki, die siedler online">
+  <meta name="author" content="TSO Community">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="canonical" href="https://tso-icon-finder.vercel.app/">
+
+  <!-- Open Graph / Facebook / Discord / Telegram -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tso-icon-finder.vercel.app/">
+  <meta property="og:site_name" content="TSO Icon Finder">
+  <meta property="og:title" id="ogTitle" content="TSO Icon Finder — Search & Download The Settlers Online Icons">
+  <meta property="og:description" id="ogDesc" content="Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 7,880+ Settlers Online icons.">
+  <meta property="og:image" content="https://tso-icon-finder.vercel.app/og-image.png">
+  <meta property="og:image:secure_url" content="https://tso-icon-finder.vercel.app/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="TSO Icon Finder — 7,880+ The Settlers Online Icons Catalog">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:locale:alternate" content="uk_UA">
+  <meta property="og:locale:alternate" content="de_DE">
+
+  <!-- Twitter / X Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://tso-icon-finder.vercel.app/">
+  <meta name="twitter:title" id="twTitle" content="TSO Icon Finder — Search & Download The Settlers Online Icons">
+  <meta name="twitter:description" id="twDesc" content="Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 7,880+ Settlers Online icons.">
+  <meta name="twitter:image" content="https://tso-icon-finder.vercel.app/og-image.png">
+
+  <!-- Favicon & PWA App Icons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "TSO Icon Finder",
+    "url": "https://tso-icon-finder.vercel.app/",
+    "description": "Instant search, high-resolution pixel zoom, and export for The Settlers Online game icons.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
   <style>
     :root {
       --bg: #0f172a;
@@ -50,7 +109,7 @@
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
+      padding: 0.85rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -67,15 +126,15 @@
     }
 
     .brand-icon {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 8px;
-      background: linear-gradient(135deg, var(--primary), #818cf8);
+      background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.2), rgba(245, 158, 11, 0.2));
+      border: 1px solid rgba(var(--primary-rgb), 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
     .brand h1 {
@@ -93,6 +152,46 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Language Switcher */
+    .lang-selector {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      user-select: none;
+    }
+
+    .lang-btn:hover {
+      color: var(--text);
+      background: var(--surface-hover);
+    }
+
+    .lang-btn.active {
+      background: var(--primary);
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 1px 4px rgba(var(--primary-rgb), 0.3);
     }
 
     .badge-count {
@@ -103,6 +202,7 @@
       border-radius: 9999px;
       font-size: 0.85rem;
       font-weight: 600;
+      white-space: nowrap;
     }
 
     .btn-icon {
@@ -120,6 +220,21 @@
     .btn-icon:hover {
       background: var(--surface-hover);
       border-color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .brand span {
+        display: none;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
     }
 
     main {
@@ -163,7 +278,7 @@
     .search-input {
       width: 100%;
       padding: 14px 48px 14px 48px;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       background: var(--bg);
       border: 2px solid var(--border);
       border-radius: 10px;
@@ -546,7 +661,7 @@
       -webkit-box-orient: vertical;
     }
 
-    .icon-card-ru {
+    .icon-card-sub {
       font-size: 0.72rem;
       color: var(--text-muted);
       overflow: hidden;
@@ -674,15 +789,24 @@
 
   <header>
     <div class="brand">
-      <div class="brand-icon">📦</div>
+      <div class="brand-icon">
+        <img src="favicon-32x32.png" alt="TSO Logo" width="28" height="28" style="image-rendering:pixelated; display:block;">
+      </div>
       <div>
         <h1>TSO Icon Finder</h1>
-        <span>Мини-приложение для поиска и скачивания иконок</span>
+        <span id="brandSubtitle">Instant search, high-res preview, and icon download</span>
       </div>
     </div>
     <div class="header-actions">
-      <span class="badge-count" id="totalCountBadge">2 517 иконок</span>
-      <button class="btn-icon" id="themeToggle" title="Переключить тему">🌓</button>
+      <!-- Language Selector -->
+      <div class="lang-selector" id="langSelector">
+        <button class="lang-btn active" data-lang="en" title="English">🇬🇧 EN</button>
+        <button class="lang-btn" data-lang="ru" title="Русский">🇷🇺 RU</button>
+        <button class="lang-btn" data-lang="uk" title="Українська">🇺🇦 UK</button>
+        <button class="lang-btn" data-lang="de" title="Deutsch">🇩🇪 DE</button>
+      </div>
+      <span class="badge-count" id="totalCountBadge">7,882 icons</span>
+      <button class="btn-icon" id="themeToggle" title="Toggle theme">🌓</button>
     </div>
   </header>
 
@@ -698,32 +822,23 @@
           type="text" 
           id="searchInput" 
           class="search-input" 
-          placeholder="Введите имя, тег или ID (например: DepositWood, Beer, IronSmelter, Хлеб)..."
+          placeholder="Enter name, tag, or ID (e.g. DepositWood, Beer, IronSmelter, Bread)..."
           autocomplete="off"
           autofocus
         >
-        <button id="clearBtn" class="clear-btn" title="Очистить">✕</button>
+        <button id="clearBtn" class="clear-btn" title="Clear">✕</button>
       </div>
 
       <div class="search-hint">
-        <div>
-          💡 Подсказка: можно вставлять XML прямо целиком: <code onclick="setSearch('DepositWood')">DepositWood</code>, <code onclick="setSearch('&lt;t id=&quot;Beer&quot; /&gt;')">&lt;t id="Beer" /&gt;</code>, <code onclick="setSearch('IronSmelter')">IronSmelter</code>, <code onclick="setSearch('General')">General</code>, <code onclick="setSearch('Хлеб')">Хлеб</code>
+        <div id="searchHintText">
+          💡 Tip: you can paste raw XML tags directly: <code onclick="setSearch('DepositWood')">DepositWood</code>, <code onclick="setSearch('&lt;t id=&quot;Beer&quot; /&gt;')">&lt;t id="Beer" /&gt;</code>, <code onclick="setSearch('IronSmelter')">IronSmelter</code>, <code onclick="setSearch('General')">General</code>, <code id="searchTagBreadCode" onclick="setSearch('Bread')">Bread</code>
         </div>
-        <div id="resultCountInfo">Показано: 0</div>
+        <div id="resultCountInfo">Shown: 0</div>
       </div>
 
       <!-- Categories -->
       <div class="categories" id="categoryContainer">
-        <button class="category-btn active" data-cat="ALL">Все (2517)</button>
-        <button class="category-btn" data-cat="RES">Ресурсы & Залежи</button>
-        <button class="category-btn" data-cat="BUI">Здания</button>
-        <button class="category-btn" data-cat="SPE">Специалисты</button>
-        <button class="category-btn" data-cat="MEL">Войска</button>
-        <button class="category-btn" data-cat="SHI">Магазин & Товары</button>
-        <button class="category-btn" data-cat="Buff">Усилители</button>
-        <button class="category-btn" data-cat="ADL">Приключения</button>
-        <button class="category-btn" data-cat="DES">Предметы</button>
-        <button class="category-btn" data-cat="Other">Разное</button>
+        <!-- Rendered dynamically by JS -->
       </div>
     </div>
 
@@ -733,16 +848,16 @@
       <!-- Left: Selected Icon Hero Preview -->
       <div class="hero-card" id="heroCard">
         <div class="hero-card-header">
-          <h2>🔍 Предпросмотр</h2>
-          <span class="badge-count" id="heroCategory">Ресурсы</span>
+          <h2 id="heroCardTitle">🔍 Preview</h2>
+          <span class="badge-count" id="heroCategory">Buildings</span>
         </div>
 
-        <div class="preview-canvas-container" title="Колёсико мыши: масштаб. Зажмите левую кнопку для перемещения. Двойной клик: сброс в центр.">
+        <div class="preview-canvas-container" id="previewCanvasContainer" title="Mouse wheel: zoom. Drag to pan. Double click: reset to center.">
           <img id="heroImg" class="preview-image" src="" alt="Icon Preview">
         </div>
 
         <div class="zoom-controls">
-          <span style="font-size:0.8rem; color:var(--text-muted); margin-right:4px;">Масштаб:</span>
+          <span style="font-size:0.8rem; color:var(--text-muted); margin-right:4px;" id="zoomLabelText">Zoom:</span>
           <button class="zoom-btn" data-zoom="1">1x</button>
           <button class="zoom-btn" data-zoom="2">2x</button>
           <button class="zoom-btn active" data-zoom="3">3x</button>
@@ -753,28 +868,28 @@
 
         <div class="icon-details">
           <div class="detail-row">
-            <span class="detail-label">XML Name / ID:</span>
+            <span class="detail-label" id="lblXmlName">XML Name / ID:</span>
             <span class="detail-value" id="heroName" style="color:var(--primary);">DepositWood</span>
           </div>
-          <div class="detail-row" id="heroRuRow">
-            <span class="detail-label">Перевод (RU):</span>
-            <span class="detail-value" id="heroRu" style="color:var(--accent);">Древесина</span>
+          <div class="detail-row" id="heroPrimaryRow">
+            <span class="detail-label" id="lblPrimaryName">Title (EN):</span>
+            <span class="detail-value" id="heroPrimaryName" style="color:var(--accent);">Pine Tree</span>
           </div>
-          <div class="detail-row" id="heroEnRow">
-            <span class="detail-label">Name (EN):</span>
-            <span class="detail-value" id="heroEn" style="color:var(--text);">Pine Tree</span>
+          <div class="detail-row" id="heroSecondaryRow">
+            <span class="detail-label" id="lblSecondaryName">Translation (RU):</span>
+            <span class="detail-value" id="heroSecondaryName" style="color:var(--text-muted);">Древесина</span>
           </div>
           <div class="detail-row" id="heroPathRow">
-            <span class="detail-label">Файл:</span>
+            <span class="detail-label" id="lblFilePath">File:</span>
             <span class="detail-value" id="heroPath" style="font-size:0.75rem; word-break:break-all; opacity:0.85;">icons/resources/icon_wood.png</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">Размер:</span>
+            <span class="detail-label" id="lblDimensions">Size:</span>
             <span class="detail-value" id="heroDimensions">26 × 25 px</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">Вес PNG:</span>
-            <span class="detail-value" id="heroSize">940 Б</span>
+            <span class="detail-label" id="lblFileSize">PNG weight:</span>
+            <span class="detail-value" id="heroSize">940 B</span>
           </div>
         </div>
 
@@ -785,28 +900,28 @@
               <polyline points="7 10 12 15 17 10"></polyline>
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
-            Скачать PNG
+            <span id="downloadBtnText">Download PNG</span>
           </button>
           <button class="btn-secondary" id="copyImgBtn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
               <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
             </svg>
-            Скопировать картинку в буфер
+            <span id="copyImgBtnText">Copy Image to Clipboard</span>
           </button>
           <button class="btn-secondary" id="copyNameBtn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
               <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
             </svg>
-            Скопировать имя (ID)
+            <span id="copyNameBtnText">Copy Name (ID)</span>
           </button>
           <button class="btn-secondary" id="copyCodeBtn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="16 18 22 12 16 6"></polyline>
               <polyline points="8 6 2 12 8 18"></polyline>
             </svg>
-            Скопировать код getImageTag
+            <span id="copyCodeBtnText">Copy getImageTag code</span>
           </button>
         </div>
       </div>
@@ -815,18 +930,18 @@
       <div class="gallery-section">
         <div class="gallery-header">
           <div>
-            <div class="gallery-title" id="galleryTitle">Иконки</div>
-            <div class="gallery-meta" id="paginationMeta">Показано 1–60 из 2517</div>
+            <div class="gallery-title" id="galleryTitle">Icons</div>
+            <div class="gallery-meta" id="paginationMeta">Showing 1–60 of 7,882</div>
           </div>
           <div class="page-size-selector">
-            <span style="font-size:0.85rem; color:var(--text-muted);">На странице:</span>
+            <span style="font-size:0.85rem; color:var(--text-muted);" id="pageSizeLabel">Per page:</span>
             <select id="pageSizeSelect" class="select-input">
               <option value="30">30</option>
               <option value="60">60</option>
               <option value="120">120</option>
               <option value="240">240</option>
               <option value="500">500</option>
-              <option value="99999">Все</option>
+              <option value="99999" id="allPageOption">All</option>
             </select>
           </div>
         </div>
@@ -836,15 +951,15 @@
         </div>
 
         <div class="pagination" id="paginationControls">
-          <button class="page-btn" id="firstPageBtn" title="Первая страница">« Первая</button>
-          <button class="page-btn" id="prevPageBtn" title="Предыдущая страница">‹ Назад</button>
+          <button class="page-btn" id="firstPageBtn" title="First page">« First</button>
+          <button class="page-btn" id="prevPageBtn" title="Previous page">‹ Prev</button>
           <div class="page-jump">
-            <span>Стр.</span>
+            <span id="pageLabelText">Page</span>
             <input type="number" id="pageInput" min="1" max="1" value="1" class="page-number-input">
-            <span id="pageTotalDisplay">из 1</span>
+            <span id="pageTotalDisplay">of 1</span>
           </div>
-          <button class="page-btn" id="nextPageBtn" title="Следующая страница">Вперёд ›</button>
-          <button class="page-btn" id="lastPageBtn" title="Последняя страница">Последняя »</button>
+          <button class="page-btn" id="nextPageBtn" title="Next page">Next ›</button>
+          <button class="page-btn" id="lastPageBtn" title="Last page">Last »</button>
         </div>
       </div>
 
@@ -852,13 +967,251 @@
   </main>
 
   <div class="toast toast-success" id="toast">
-    <span id="toastMessage">Скачано!</span>
+    <span id="toastMessage">Downloaded!</span>
   </div>
 
   <!-- Icons Data Script -->
   <script src="icons_data.js"></script>
 
   <script>
+    // i18n Localization Dictionary
+    // English is the default language.
+    // "XML Name / ID:" is untranslated as requested.
+    const I18N = {
+      en: {
+        docTitle: 'TSO Icon Finder — Search & Download The Settlers Online Icons',
+        metaDesc: 'Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 7,880+ Settlers Online icons.',
+        brandSubtitle: 'Instant search, high-res preview, and icon download',
+        totalIcons: (n) => `${n.toLocaleString('en-US')} icons`,
+        searchPlaceholder: 'Enter name, tag, or ID (e.g. DepositWood, Beer, IronSmelter, Bread)...',
+        clearTitle: 'Clear',
+        searchHintText: '💡 Tip: you can paste raw XML tags directly:',
+        searchTagBread: 'Bread',
+        foundCount: (n) => `Found: ${n.toLocaleString('en-US')}`,
+        heroTitle: '🔍 Preview',
+        canvasTitle: 'Mouse wheel: zoom. Drag to pan. Double click: reset to center.',
+        zoomLabel: 'Zoom:',
+        xmlNameLabel: 'XML Name / ID:',
+        primaryNameLabel: 'Title (EN):',
+        secondaryNameLabel: 'Translation (RU):',
+        filePathLabel: 'File:',
+        dimensionsLabel: 'Size:',
+        fileSizeLabel: 'PNG weight:',
+        downloadBtn: 'Download PNG',
+        copyImgBtn: 'Copy Image to Clipboard',
+        copyNameBtn: 'Copy Name (ID)',
+        copyCodeBtn: 'Copy getImageTag code',
+        galleryTitle: 'Icons',
+        pageSizeLabel: 'Per page:',
+        allPageOption: 'All',
+        paginationMeta: (start, end, total) => `Showing ${start}–${end} of ${total.toLocaleString('en-US')}`,
+        nothingFound: 'Nothing found',
+        emptyTitle: 'Icon not found',
+        emptyDesc: 'Try adjusting your search query or search by partial keyword',
+        firstPageBtn: '« First',
+        prevPageBtn: '‹ Prev',
+        nextPageBtn: 'Next ›',
+        lastPageBtn: 'Last »',
+        pageLabelText: 'Page',
+        pageTotalDisplay: (n) => `of ${n}`,
+        themeToggleTitle: 'Toggle theme',
+        toastDownloaded: (name) => `Icon "${name}" downloaded!`,
+        toastImgCopied: (name) => `Image "${name}.png" copied to clipboard!`,
+        toastUrlCopied: () => `Icon URL copied to clipboard!`,
+        toastNameCopied: (name) => `Name "${name}" copied!`,
+        toastCodeCopied: (code) => `Code ${code} copied!`,
+        toastCopyError: (err) => `Failed to copy: ${err}`,
+        categories: {
+          ALL: 'All',
+          BUI: 'Buildings',
+          RES: 'Resources',
+          BUFF: 'Buffs',
+          SHI: 'Shop',
+          ACH: 'Achievements',
+          ADN: 'Adventures',
+          UNI: 'Military',
+          SKL: 'Skills',
+          AVT: 'Avatars',
+          GUI: 'Interface',
+          COL: 'Collections'
+        }
+      },
+      ru: {
+        docTitle: 'TSO Icon Finder — Поиск и скачивание иконок The Settlers Online',
+        metaDesc: 'Мгновенный поиск, попиксельный зум и экспорт более 7 880 иконок The Settlers Online: здания, усилители, приключения и ресурсы.',
+        brandSubtitle: 'Мини-приложение для поиска и скачивания иконок',
+        totalIcons: (n) => `${n.toLocaleString('ru-RU')} иконок`,
+        searchPlaceholder: 'Введите имя, тег или ID (например: DepositWood, Beer, IronSmelter, Хлеб)...',
+        clearTitle: 'Очистить',
+        searchHintText: '💡 Подсказка: можно вставлять XML прямо целиком:',
+        searchTagBread: 'Хлеб',
+        foundCount: (n) => `Найдено: ${n.toLocaleString('ru-RU')}`,
+        heroTitle: '🔍 Предпросмотр',
+        canvasTitle: 'Колёсико мыши: масштаб. Зажмите левую кнопку для перемещения. Двойной клик: сброс в центр.',
+        zoomLabel: 'Масштаб:',
+        xmlNameLabel: 'XML Name / ID:',
+        primaryNameLabel: 'Перевод (RU):',
+        secondaryNameLabel: 'Name (EN):',
+        filePathLabel: 'Файл:',
+        dimensionsLabel: 'Размер:',
+        fileSizeLabel: 'Вес PNG:',
+        downloadBtn: 'Скачать PNG',
+        copyImgBtn: 'Скопировать картинку в буфер',
+        copyNameBtn: 'Скопировать имя (ID)',
+        copyCodeBtn: 'Скопировать код getImageTag',
+        galleryTitle: 'Иконки',
+        pageSizeLabel: 'На странице:',
+        allPageOption: 'Все',
+        paginationMeta: (start, end, total) => `Показано ${start}–${end} из ${total.toLocaleString('ru-RU')}`,
+        nothingFound: 'Ничего не найдено',
+        emptyTitle: 'Иконка не найдена',
+        emptyDesc: 'Попробуйте изменить запрос или поискать по части слова',
+        firstPageBtn: '« Первая',
+        prevPageBtn: '‹ Назад',
+        nextPageBtn: 'Вперёд ›',
+        lastPageBtn: 'Последняя »',
+        pageLabelText: 'Стр.',
+        pageTotalDisplay: (n) => `из ${n}`,
+        themeToggleTitle: 'Переключить тему',
+        toastDownloaded: (name) => `Иконка "${name}" скачана!`,
+        toastImgCopied: (name) => `Картинка "${name}.png" скопирована в буфер!`,
+        toastUrlCopied: () => `Ссылка на иконку скопирована в буфер!`,
+        toastNameCopied: (name) => `Имя "${name}" скопировано!`,
+        toastCodeCopied: (code) => `Код ${code} скопирован!`,
+        toastCopyError: (err) => `Не удалось скопировать: ${err}`,
+        categories: {
+          ALL: 'Все',
+          BUI: 'Здания',
+          RES: 'Ресурсы',
+          BUFF: 'Усилители',
+          SHI: 'Магазин',
+          ACH: 'Достижения',
+          ADN: 'Приключения',
+          UNI: 'Войска',
+          SKL: 'Навыки',
+          AVT: 'Аватары',
+          GUI: 'Интерфейс',
+          COL: 'Коллекции'
+        }
+      },
+      uk: {
+        docTitle: 'TSO Icon Finder — Пошук та завантаження іконок The Settlers Online',
+        metaDesc: 'Швидкий пошук, попіксельний зум та прямий експорт понад 7 880 іконок The Settlers Online: будівлі, підсилювачі, пригоди та ресурси.',
+        brandSubtitle: 'Міні-додаток для пошуку та завантаження іконок',
+        totalIcons: (n) => `${n.toLocaleString('uk-UA')} іконок`,
+        searchPlaceholder: 'Введіть назву, тег або ID (наприклад: DepositWood, Beer, IronSmelter, Хліб)...',
+        clearTitle: 'Очистити',
+        searchHintText: '💡 Підказка: можна вставляти XML прямо цілком:',
+        searchTagBread: 'Хліб',
+        foundCount: (n) => `Знайдено: ${n.toLocaleString('uk-UA')}`,
+        heroTitle: '🔍 Попередній перегляд',
+        canvasTitle: 'Коліщатко миші: масштаб. Затисніть ліву кнопку для переміщення. Подвійний клік: скидання в центр.',
+        zoomLabel: 'Масштаб:',
+        xmlNameLabel: 'XML Name / ID:',
+        primaryNameLabel: 'Переклад (RU):',
+        secondaryNameLabel: 'Name (EN):',
+        filePathLabel: 'Файл:',
+        dimensionsLabel: 'Розмір:',
+        fileSizeLabel: 'Вага PNG:',
+        downloadBtn: 'Завантажити PNG',
+        copyImgBtn: 'Скопіювати зображення в буфер',
+        copyNameBtn: 'Скопіювати ім\'я (ID)',
+        copyCodeBtn: 'Скопіювати код getImageTag',
+        galleryTitle: 'Іконки',
+        pageSizeLabel: 'На сторінці:',
+        allPageOption: 'Всі',
+        paginationMeta: (start, end, total) => `Показано ${start}–${end} з ${total.toLocaleString('uk-UA')}`,
+        nothingFound: 'Нічого не знайдено',
+        emptyTitle: 'Іконку не знайдено',
+        emptyDesc: 'Спробуйте змінити запит або шукати за частиною слова',
+        firstPageBtn: '« Перша',
+        prevPageBtn: '‹ Назад',
+        nextPageBtn: 'Вперед ›',
+        lastPageBtn: 'Остання »',
+        pageLabelText: 'Стор.',
+        pageTotalDisplay: (n) => `з ${n}`,
+        themeToggleTitle: 'Змінити тему',
+        toastDownloaded: (name) => `Іконку "${name}" завантажено!`,
+        toastImgCopied: (name) => `Зображення "${name}.png" скопійовано в буфер!`,
+        toastUrlCopied: () => `Посилання на іконку скопійовано в буфер!`,
+        toastNameCopied: (name) => `Ім'я "${name}" скопійовано!`,
+        toastCodeCopied: (code) => `Код ${code} скопійовано!`,
+        toastCopyError: (err) => `Не вдалося скопіювати: ${err}`,
+        categories: {
+          ALL: 'Всі',
+          BUI: 'Будівлі',
+          RES: 'Ресурси',
+          BUFF: 'Підсилювачі',
+          SHI: 'Магазин',
+          ACH: 'Досягнення',
+          ADN: 'Пригоди',
+          UNI: 'Війська',
+          SKL: 'Навички',
+          AVT: 'Аватари',
+          GUI: 'Інтерфейс',
+          COL: 'Колекції'
+        }
+      },
+      de: {
+        docTitle: 'TSO Icon Finder — Suche & Download von The Settlers Online Icons',
+        metaDesc: 'Sofortige Suche, pixelgenauer Zoom und PNG-Export von über 7.880 Siedler Online-Icons: Gebäude, Förderungen, Abenteuer und Rohstoffe.',
+        brandSubtitle: 'Mini-App für blitzschnelle Suche, Vorschau und Download von Icons',
+        totalIcons: (n) => `${n.toLocaleString('de-DE')} Icons`,
+        searchPlaceholder: 'Name, Tag oder ID eingeben (z. B. DepositWood, Beer, IronSmelter, Brot)...',
+        clearTitle: 'Löschen',
+        searchHintText: '💡 Tipp: Sie können reine XML-Tags direkt einfügen:',
+        searchTagBread: 'Brot',
+        foundCount: (n) => `Gefunden: ${n.toLocaleString('de-DE')}`,
+        heroTitle: '🔍 Vorschau',
+        canvasTitle: 'Mausrad: Zoom. Ziehen zum Verschieben. Doppelklick: Zurücksetzen.',
+        zoomLabel: 'Zoom:',
+        xmlNameLabel: 'XML Name / ID:',
+        primaryNameLabel: 'Titel (EN):',
+        secondaryNameLabel: 'Übersetzung (RU):',
+        filePathLabel: 'Datei:',
+        dimensionsLabel: 'Maße:',
+        fileSizeLabel: 'Dateigröße:',
+        downloadBtn: 'PNG herunterladen',
+        copyImgBtn: 'Bild in die Zwischenablage',
+        copyNameBtn: 'Name (ID) kopieren',
+        copyCodeBtn: 'getImageTag-Code kopieren',
+        galleryTitle: 'Icons',
+        pageSizeLabel: 'Pro Seite:',
+        allPageOption: 'Alle',
+        paginationMeta: (start, end, total) => `Zeige ${start}–${end} von ${total.toLocaleString('de-DE')}`,
+        nothingFound: 'Nichts gefunden',
+        emptyTitle: 'Icon nicht gefunden',
+        emptyDesc: 'Passen Sie Ihre Suchanfrage an oder suchen Sie nach einem Wortteil',
+        firstPageBtn: '« Erste',
+        prevPageBtn: '‹ Zurück',
+        nextPageBtn: 'Weiter ›',
+        lastPageBtn: 'Letzte »',
+        pageLabelText: 'Seite',
+        pageTotalDisplay: (n) => `von ${n}`,
+        themeToggleTitle: 'Design umschalten',
+        toastDownloaded: (name) => `Icon "${name}" heruntergeladen!`,
+        toastImgCopied: (name) => `Bild "${name}.png" in Zwischenablage kopiert!`,
+        toastUrlCopied: () => `Icon-Link in Zwischenablage kopiert!`,
+        toastNameCopied: (name) => `Name "${name}" kopiert!`,
+        toastCodeCopied: (code) => `Code ${code} kopiert!`,
+        toastCopyError: (err) => `Kopieren fehlgeschlagen: ${err}`,
+        categories: {
+          ALL: 'Alle',
+          BUI: 'Gebäude',
+          RES: 'Ressourcen',
+          BUFF: 'Förderungen',
+          SHI: 'Kaufmann',
+          ACH: 'Erfolge',
+          ADN: 'Abenteuer',
+          UNI: 'Militär',
+          SKL: 'Talente',
+          AVT: 'Avatare',
+          GUI: 'Benutzeroberfläche',
+          COL: 'Sammlungen'
+        }
+      }
+    };
+
     // State
     let allIcons = [];
     let filteredIcons = [];
@@ -867,6 +1220,21 @@
     let currentPage = 1;
     let PAGE_SIZE = parseInt(localStorage.getItem('tso_icon_page_size'), 10) || 60;
     let currentZoom = 3;
+
+    // Detect Language (URL param > localStorage > default 'en')
+    function detectInitialLang() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlLang = urlParams.get('lang');
+      if (urlLang && I18N[urlLang]) return urlLang;
+
+      const storedLang = localStorage.getItem('tso_lang');
+      if (storedLang && I18N[storedLang]) return storedLang;
+
+      // Default: English as requested
+      return 'en';
+    }
+
+    let currentLang = detectInitialLang();
 
     // Elements
     const searchInput = document.getElementById('searchInput');
@@ -887,44 +1255,61 @@
     const themeToggle = document.getElementById('themeToggle');
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
+    const langSelector = document.getElementById('langSelector');
+    const brandSubtitle = document.getElementById('brandSubtitle');
+    const totalCountBadge = document.getElementById('totalCountBadge');
+    const searchHintText = document.getElementById('searchHintText');
+    const searchTagBreadCode = document.getElementById('searchTagBreadCode');
+    const pageSizeLabel = document.getElementById('pageSizeLabel');
+    const allPageOption = document.getElementById('allPageOption');
+    const pageLabelText = document.getElementById('pageLabelText');
 
     // Hero Elements
+    const heroCardTitle = document.getElementById('heroCardTitle');
+    const previewCanvasContainer = document.getElementById('previewCanvasContainer');
+    const zoomLabelText = document.getElementById('zoomLabelText');
     const heroImg = document.getElementById('heroImg');
     const heroName = document.getElementById('heroName');
-    const heroRu = document.getElementById('heroRu');
-    const heroRuRow = document.getElementById('heroRuRow');
-    const heroEn = document.getElementById('heroEn');
-    const heroEnRow = document.getElementById('heroEnRow');
+    const heroCategory = document.getElementById('heroCategory');
+    const lblXmlName = document.getElementById('lblXmlName');
+    const lblPrimaryName = document.getElementById('lblPrimaryName');
+    const heroPrimaryName = document.getElementById('heroPrimaryName');
+    const heroPrimaryRow = document.getElementById('heroPrimaryRow');
+    const lblSecondaryName = document.getElementById('lblSecondaryName');
+    const heroSecondaryName = document.getElementById('heroSecondaryName');
+    const heroSecondaryRow = document.getElementById('heroSecondaryRow');
+    const lblFilePath = document.getElementById('lblFilePath');
     const heroPath = document.getElementById('heroPath');
     const heroPathRow = document.getElementById('heroPathRow');
-    const heroCategory = document.getElementById('heroCategory');
+    const lblDimensions = document.getElementById('lblDimensions');
     const heroDimensions = document.getElementById('heroDimensions');
+    const lblFileSize = document.getElementById('lblFileSize');
     const heroSize = document.getElementById('heroSize');
     const downloadBtn = document.getElementById('downloadBtn');
+    const downloadBtnText = document.getElementById('downloadBtnText');
     const copyImgBtn = document.getElementById('copyImgBtn');
+    const copyImgBtnText = document.getElementById('copyImgBtnText');
     const copyNameBtn = document.getElementById('copyNameBtn');
+    const copyNameBtnText = document.getElementById('copyNameBtnText');
     const copyCodeBtn = document.getElementById('copyCodeBtn');
+    const copyCodeBtnText = document.getElementById('copyCodeBtnText');
 
     // Clean XML input if user pastes tag, e.g. <t id="Beer" text="Квас" /> or <Building name="IronSmelter">
     function cleanXmlInput(text) {
       if (!text) return '';
       let clean = text.trim();
       
-      // Match attribute like name="...", id="...", icon="...", iconfilename="..."
       const attrMatch = clean.match(/(?:name|id|icon|iconfilename|type)\s*=\s*["']([^"']+)["']/i);
       if (attrMatch) {
         clean = attrMatch[1];
       } else {
-        // Match <tag>Value</tag>
         const tagMatch = clean.match(/<([a-zA-Z0-9_\-]+)>([^<]+)<\/\1>/);
         if (tagMatch) {
           clean = tagMatch[2].trim();
         } else {
-          // Strip leading/trailing brackets, quotes, slashes
           clean = clean.replace(/^[<"'\s]+|[>"'\s\/]+$/g, '');
         }
       }
-      // Remove trailing .png if user copied with file extension
       clean = clean.replace(/\.png$/i, '');
       return clean;
     }
@@ -955,7 +1340,6 @@
       currentPage = page;
       renderGallery();
 
-      // Gently scroll gallery header into view ONLY if user has scrolled past it
       const galleryHeader = document.querySelector('.gallery-header');
       if (galleryHeader) {
         const rect = galleryHeader.getBoundingClientRect();
@@ -965,16 +1349,376 @@
       }
     }
 
-    // Initialize
+    const categoryDefs = [
+      { id: 'ALL' },
+      { id: 'BUI' },
+      { id: 'RES' },
+      { id: 'BUFF' },
+      { id: 'SHI' },
+      { id: 'ACH' },
+      { id: 'ADN' },
+      { id: 'UNI' },
+      { id: 'SKL' },
+      { id: 'AVT' },
+      { id: 'GUI' },
+      { id: 'COL' }
+    ];
+
+    function getCategoryTitle(catId) {
+      const t = I18N[currentLang];
+      return (t.categories && t.categories[catId]) || catId;
+    }
+
+    function renderCategories() {
+      const t = I18N[currentLang];
+      const catCounts = { ALL: allIcons.length };
+      for (const icon of allIcons) {
+        catCounts[icon.sec] = (catCounts[icon.sec] || 0) + 1;
+      }
+      categoryContainer.innerHTML = categoryDefs
+        .filter(cat => cat.id === 'ALL' || (catCounts[cat.id] && catCounts[cat.id] > 0))
+        .map(cat => {
+          const title = (t.categories && t.categories[cat.id]) || cat.id;
+          const count = catCounts[cat.id] || 0;
+          const localeStr = (currentLang === 'ru' || currentLang === 'uk') ? 'ru-RU' : 'en-US';
+          return `
+            <button class="category-btn ${currentCategory === cat.id ? 'active' : ''}" data-cat="${cat.id}">
+              ${title} <span class="cat-count">${count.toLocaleString(localeStr)}</span>
+            </button>
+          `;
+        }).join('');
+    }
+
+    function applyLanguage(lang) {
+      if (!I18N[lang]) return;
+      currentLang = lang;
+      localStorage.setItem('tso_lang', lang);
+
+      // Update URL without page reload
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', lang);
+      window.history.replaceState(null, '', url.toString());
+
+      const t = I18N[lang];
+      document.documentElement.lang = lang;
+      document.title = t.docTitle;
+
+      const metaDesc = document.getElementById('metaDescription');
+      if (metaDesc) metaDesc.content = t.metaDesc;
+      const ogTitle = document.getElementById('ogTitle');
+      if (ogTitle) ogTitle.content = t.docTitle;
+      const ogDesc = document.getElementById('ogDesc');
+      if (ogDesc) ogDesc.content = t.metaDesc;
+      const twTitle = document.getElementById('twTitle');
+      if (twTitle) twTitle.content = t.docTitle;
+      const twDesc = document.getElementById('twDesc');
+      if (twDesc) twDesc.content = t.metaDesc;
+
+      // Update header buttons active state
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      // Update static labels
+      brandSubtitle.textContent = t.brandSubtitle;
+      totalCountBadge.textContent = t.totalIcons(allIcons.length);
+      searchInput.placeholder = t.searchPlaceholder;
+      clearBtn.title = t.clearTitle;
+
+      searchHintText.innerHTML = `
+        ${t.searchHintText} <code onclick="setSearch('DepositWood')">DepositWood</code>, <code onclick="setSearch('&lt;t id=&quot;Beer&quot; /&gt;')">&lt;t id="Beer" /&gt;</code>, <code onclick="setSearch('IronSmelter')">IronSmelter</code>, <code onclick="setSearch('General')">General</code>, <code onclick="setSearch('${t.searchTagBread}')">${t.searchTagBread}</code>
+      `;
+
+      heroCardTitle.textContent = t.heroTitle;
+      previewCanvasContainer.title = t.canvasTitle;
+      zoomLabelText.textContent = t.zoomLabel;
+      lblXmlName.textContent = t.xmlNameLabel;
+      lblFilePath.textContent = t.filePathLabel;
+      lblDimensions.textContent = t.dimensionsLabel;
+      lblFileSize.textContent = t.fileSizeLabel;
+
+      downloadBtnText.textContent = t.downloadBtn;
+      copyImgBtnText.textContent = t.copyImgBtn;
+      copyNameBtnText.textContent = t.copyNameBtn;
+      copyCodeBtnText.textContent = t.copyCodeBtn;
+
+      galleryTitle.textContent = t.galleryTitle;
+      pageSizeLabel.textContent = t.pageSizeLabel;
+      allPageOption.textContent = t.allPageOption;
+      firstPageBtn.textContent = t.firstPageBtn;
+      prevPageBtn.textContent = t.prevPageBtn;
+      nextPageBtn.textContent = t.nextPageBtn;
+      lastPageBtn.textContent = t.lastPageBtn;
+      pageLabelText.textContent = t.pageLabelText;
+      themeToggle.title = t.themeToggleTitle;
+
+      renderCategories();
+      applyFilters();
+
+      if (selectedIcon) {
+        selectIcon(selectedIcon);
+      }
+    }
+
+    function applyFilters() {
+      const rawQuery = searchInput.value.trim();
+      const query = cleanXmlInput(rawQuery).toLowerCase();
+      const t = I18N[currentLang];
+
+      filteredIcons = allIcons.filter(item => {
+        // Category filter
+        if (currentCategory !== 'ALL') {
+          if (currentCategory === 'RES' && !(item.sec === 'RES' || item.sec === 'Deposit')) return false;
+          else if (currentCategory === 'BUI' && item.sec !== 'BUI') return false;
+          else if (currentCategory === 'BUFF' && !(item.sec === 'BUFF' || item.sec === 'Buff')) return false;
+          else if (currentCategory === 'SHI' && !(item.sec === 'SHI' || item.sec === 'SIT')) return false;
+          else if (currentCategory === 'ADN' && !(item.sec === 'ADN' || item.sec === 'ADL' || item.sec === 'Adventure')) return false;
+          else if (currentCategory === 'ACH' && !(item.sec === 'ACH' || item.sec === 'ACL' || item.sec === 'ACD')) return false;
+          else if (currentCategory === 'UNI' && !(item.sec === 'UNI' || item.sec === 'MEL' || item.sec === 'Military')) return false;
+          else if (currentCategory === 'SKL' && item.sec !== 'SKL') return false;
+          else if (currentCategory === 'AVT' && !(item.sec === 'AVT' || item.sec === 'SPE')) return false;
+          else if (currentCategory === 'GUI' && item.sec !== 'GUI') return false;
+          else if (currentCategory === 'COL' && item.sec !== 'COL') return false;
+          else if (currentCategory !== item.sec) return false;
+        }
+
+        if (!query) return true;
+
+        // Query match across all fields: name, ru, en, safeName, path
+        const nameLower = (item.name || '').toLowerCase();
+        const ruLower = (item.ru || '').toLowerCase();
+        const enLower = (item.en || '').toLowerCase();
+        const safeLower = (item.safeName || '').toLowerCase();
+        const pathLower = (item.path || '').toLowerCase();
+        return nameLower.includes(query) || 
+               ruLower.includes(query) || 
+               enLower.includes(query) || 
+               safeLower.includes(query) || 
+               pathLower.includes(query);
+      });
+
+      // Sort exact matches to the top
+      if (query) {
+        filteredIcons.sort((a, b) => {
+          const aName = (a.name || '').toLowerCase();
+          const bName = (b.name || '').toLowerCase();
+          const aRu = (a.ru || '').toLowerCase();
+          const bRu = (b.ru || '').toLowerCase();
+          const aEn = (a.en || '').toLowerCase();
+          const bEn = (b.en || '').toLowerCase();
+
+          const aExact = aName === query || aRu === query || aEn === query;
+          const bExact = bName === query || bRu === query || bEn === query;
+          if (aExact && !bExact) return -1;
+          if (bExact && !aExact) return 1;
+
+          const aStart = aName.startsWith(query) || aRu.startsWith(query) || aEn.startsWith(query);
+          const bStart = bName.startsWith(query) || bRu.startsWith(query) || bEn.startsWith(query);
+          if (aStart && !bStart) return -1;
+          if (bStart && !aStart) return 1;
+
+          return 0;
+        });
+
+        // Automatically select the best match if typing
+        if (filteredIcons.length > 0) {
+          selectIcon(filteredIcons[0]);
+        }
+      }
+
+      resultCountInfo.textContent = t.foundCount(filteredIcons.length);
+      renderGallery();
+    }
+
+    function renderGallery() {
+      const t = I18N[currentLang];
+      const total = filteredIcons.length;
+      const totalPages = Math.ceil(total / PAGE_SIZE) || 1;
+
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      const startIndex = (currentPage - 1) * PAGE_SIZE;
+      const endIndex = Math.min(startIndex + PAGE_SIZE, total);
+      const pageItems = filteredIcons.slice(startIndex, endIndex);
+
+      paginationMeta.textContent = total > 0 ? t.paginationMeta(startIndex + 1, endIndex, total) : t.nothingFound;
+      firstPageBtn.disabled = currentPage <= 1;
+      prevPageBtn.disabled = currentPage <= 1;
+      nextPageBtn.disabled = currentPage >= totalPages;
+      lastPageBtn.disabled = currentPage >= totalPages;
+      pageInput.max = totalPages;
+      pageInput.value = currentPage;
+      pageTotalDisplay.textContent = t.pageTotalDisplay(totalPages);
+
+      if (total === 0) {
+        galleryGrid.innerHTML = `
+          <div class="empty-state">
+            <div style="font-size:2rem; margin-bottom:8px;">🔍</div>
+            <div style="font-weight:600; font-size:1.1rem; margin-bottom:4px;">${t.emptyTitle}</div>
+            <div>${t.emptyDesc}</div>
+          </div>
+        `;
+        return;
+      }
+
+      galleryGrid.innerHTML = pageItems.map(item => {
+        const isSelected = selectedIcon && selectedIcon.name === item.name;
+        // Localized card subtitle based on current language
+        let subText = '';
+        if (currentLang === 'en' || currentLang === 'de') {
+          subText = item.en || item.ru || getCategoryTitle(item.sec) || '';
+        } else {
+          subText = item.ru || item.en || getCategoryTitle(item.sec) || '';
+        }
+
+        const cardTooltip = `${item.name}${item.en ? ' • ' + item.en : ''}${item.ru ? ' • ' + item.ru : ''}`;
+
+        return `
+          <div class="icon-card ${isSelected ? 'selected' : ''}" data-name="${item.name}" title="${cardTooltip}">
+            <div class="icon-card-thumb">
+              <img src="${item.src}" alt="${item.name}" loading="lazy">
+            </div>
+            <div class="icon-card-name">${item.name}</div>
+            <div class="icon-card-sub">${subText}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Click card
+      galleryGrid.querySelectorAll('.icon-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          e.preventDefault();
+          const name = card.dataset.name;
+          const found = allIcons.find(i => i.name === name);
+          if (found) {
+            selectIcon(found);
+            galleryGrid.querySelectorAll('.icon-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+          }
+        });
+      });
+    }
+
+    function selectIcon(icon) {
+      if (!icon) return;
+      selectedIcon = icon;
+      heroImg.src = icon.src;
+      panX = 0;
+      panY = 0;
+      updateZoom(false);
+
+      const t = I18N[currentLang];
+
+      // XML Name / ID: never translated
+      heroName.textContent = icon.name;
+
+      // Category badge
+      heroCategory.textContent = getCategoryTitle(icon.sec) || icon.secTitle || icon.sec || 'Icon';
+
+      // Dimensions & Weight
+      heroDimensions.textContent = `${icon.w || 24} × ${icon.h || 24} px`;
+      if (currentLang === 'ru' || currentLang === 'uk') {
+        heroSize.textContent = `${(icon.size / 1024).toFixed(1)} КБ (${icon.size.toLocaleString('ru-RU')} Б)`;
+      } else {
+        heroSize.textContent = `${(icon.size / 1024).toFixed(1)} KB (${icon.size.toLocaleString('en-US')} B)`;
+      }
+
+      // Title & Translation Rows
+      if (currentLang === 'en' || currentLang === 'de') {
+        lblPrimaryName.textContent = t.primaryNameLabel;
+        heroPrimaryName.textContent = icon.en || icon.name;
+        heroPrimaryRow.style.display = 'flex';
+
+        if (icon.ru && icon.ru !== icon.en) {
+          lblSecondaryName.textContent = t.secondaryNameLabel;
+          heroSecondaryName.textContent = icon.ru;
+          heroSecondaryRow.style.display = 'flex';
+        } else {
+          heroSecondaryRow.style.display = 'none';
+        }
+      } else {
+        // ru or uk
+        lblPrimaryName.textContent = t.primaryNameLabel;
+        heroPrimaryName.textContent = icon.ru || icon.en || icon.name;
+        heroPrimaryRow.style.display = 'flex';
+
+        if (icon.en && icon.en !== icon.ru) {
+          lblSecondaryName.textContent = t.secondaryNameLabel;
+          heroSecondaryName.textContent = icon.en;
+          heroSecondaryRow.style.display = 'flex';
+        } else {
+          heroSecondaryRow.style.display = 'none';
+        }
+      }
+
+      if (icon.path) {
+        heroPath.textContent = icon.path;
+        heroPathRow.style.display = 'flex';
+      } else {
+        heroPathRow.style.display = 'none';
+      }
+    }
+
+    function downloadCurrentIcon() {
+      if (!selectedIcon) return;
+      const t = I18N[currentLang];
+      const link = document.createElement('a');
+      link.href = selectedIcon.src;
+      link.download = `${selectedIcon.safeName || selectedIcon.name}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast(t.toastDownloaded(link.download));
+    }
+
+    async function copyCurrentImage() {
+      if (!selectedIcon) return;
+      const t = I18N[currentLang];
+      try {
+        const res = await fetch(selectedIcon.src);
+        const blob = await res.blob();
+        await navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': blob })
+        ]);
+        showToast(t.toastImgCopied(selectedIcon.name));
+      } catch (err) {
+        try {
+          const fullUrl = new URL(selectedIcon.src, window.location.href).href;
+          await navigator.clipboard.writeText(fullUrl);
+          showToast(t.toastUrlCopied());
+        } catch (e) {
+          showToast(t.toastCopyError(err.message));
+        }
+      }
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      toastMessage.textContent = msg;
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    function setSearch(query) {
+      searchInput.value = query;
+      clearBtn.style.display = 'block';
+      currentPage = 1;
+      applyFilters();
+      searchInput.focus();
+    }
+
+    // Initialize Application
     function init() {
       if (window.TSO_ICONS_DATA && Array.isArray(window.TSO_ICONS_DATA)) {
         allIcons = window.TSO_ICONS_DATA;
       } else {
-        galleryGrid.innerHTML = `<div class="empty-state">⚠️ Файл данных icons_data.js не найден или пуст. Убедитесь, что icons_data.js лежит рядом с icon_finder.html.</div>`;
+        galleryGrid.innerHTML = `<div class="empty-state">⚠️ icons_data.js not found or empty. Ensure icons_data.js is present.</div>`;
         return;
       }
-
-      document.getElementById('totalCountBadge').textContent = `${allIcons.length.toLocaleString('ru-RU')} иконок`;
 
       // Restore stored page size
       if (pageSizeSelect) {
@@ -987,18 +1731,23 @@
         });
       }
 
-      // Select first icon as default
+      // Select first icon as default preview
       if (allIcons.length > 0) {
         selectIcon(allIcons[0]);
       }
 
-      // Render category buttons dynamically with counts
-      renderCategories();
+      // Language Switcher Events
+      langSelector.addEventListener('click', (e) => {
+        const btn = e.target.closest('.lang-btn');
+        if (btn && btn.dataset.lang) {
+          applyLanguage(btn.dataset.lang);
+        }
+      });
 
-      // Filter
-      applyFilters();
+      // Apply initial language
+      applyLanguage(currentLang);
 
-      // Events
+      // Search Events
       searchInput.addEventListener('input', () => {
         clearBtn.style.display = searchInput.value ? 'block' : 'none';
         currentPage = 1;
@@ -1013,6 +1762,7 @@
         searchInput.focus();
       });
 
+      // Category filter clicks
       categoryContainer.addEventListener('click', (e) => {
         const btn = e.target.closest('.category-btn');
         if (btn) {
@@ -1058,9 +1808,8 @@
       });
 
       // Mouse wheel zoom & drag pan inside preview container
-      const previewCanvas = document.querySelector('.preview-canvas-container');
-      if (previewCanvas) {
-        previewCanvas.addEventListener('wheel', (e) => {
+      if (previewCanvasContainer) {
+        previewCanvasContainer.addEventListener('wheel', (e) => {
           e.preventDefault();
           const zoomLevels = [1, 2, 3, 4, 6, 8];
           let idx = zoomLevels.indexOf(currentZoom);
@@ -1078,7 +1827,7 @@
         }, { passive: false });
 
         // Drag to pan zoomed icon
-        previewCanvas.addEventListener('mousedown', (e) => {
+        previewCanvasContainer.addEventListener('mousedown', (e) => {
           if (e.button !== 0) return;
           isPanning = true;
           startX = e.clientX - panX;
@@ -1101,7 +1850,7 @@
         });
 
         // Double click to reset zoom & pan
-        previewCanvas.addEventListener('dblclick', () => {
+        previewCanvasContainer.addEventListener('dblclick', () => {
           panX = 0;
           panY = 0;
           currentZoom = 3;
@@ -1117,15 +1866,17 @@
       copyImgBtn.addEventListener('click', copyCurrentImage);
       copyNameBtn.addEventListener('click', () => {
         if (selectedIcon) {
+          const t = I18N[currentLang];
           navigator.clipboard.writeText(selectedIcon.name);
-          showToast(`Имя "${selectedIcon.name}" скопировано!`);
+          showToast(t.toastNameCopied(selectedIcon.name));
         }
       });
       copyCodeBtn.addEventListener('click', () => {
         if (selectedIcon) {
+          const t = I18N[currentLang];
           const code = `getImageTag('${selectedIcon.name}', '24px')`;
           navigator.clipboard.writeText(code);
-          showToast(`Код ${code} скопирован!`);
+          showToast(t.toastCodeCopied(code));
         }
       });
 
@@ -1154,244 +1905,19 @@
           }
         }
       });
-    }
 
-    function setSearch(query) {
-      searchInput.value = query;
-      clearBtn.style.display = 'block';
-      currentPage = 1;
-      applyFilters();
-      searchInput.focus();
-    }
-
-    const categoryDefs = [
-      { id: 'ALL', title: 'Все' },
-      { id: 'BUI', title: 'Здания' },
-      { id: 'RES', title: 'Ресурсы' },
-      { id: 'BUFF', title: 'Усилители' },
-      { id: 'SHI', title: 'Магазин' },
-      { id: 'ACH', title: 'Достижения' },
-      { id: 'ADN', title: 'Приключения' },
-      { id: 'UNI', title: 'Войска' },
-      { id: 'SKL', title: 'Навыки' },
-      { id: 'AVT', title: 'Аватары' },
-      { id: 'GUI', title: 'Интерфейс' },
-      { id: 'COL', title: 'Коллекции' }
-    ];
-
-    function renderCategories() {
-      const catCounts = { ALL: allIcons.length };
-      for (const icon of allIcons) {
-        catCounts[icon.sec] = (catCounts[icon.sec] || 0) + 1;
-      }
-      categoryContainer.innerHTML = categoryDefs
-        .filter(cat => cat.id === 'ALL' || (catCounts[cat.id] && catCounts[cat.id] > 0))
-        .map(cat => `
-          <button class="category-btn ${currentCategory === cat.id ? 'active' : ''}" data-cat="${cat.id}">
-            ${cat.title} <span class="cat-count">${(catCounts[cat.id] || 0).toLocaleString('ru-RU')}</span>
-          </button>
-        `).join('');
-    }
-
-    function applyFilters() {
-      const rawQuery = searchInput.value.trim();
-      const query = cleanXmlInput(rawQuery).toLowerCase();
-
-      filteredIcons = allIcons.filter(item => {
-        // Category filter
-        if (currentCategory !== 'ALL') {
-          if (currentCategory === 'RES' && !(item.sec === 'RES' || item.sec === 'Deposit')) return false;
-          else if (currentCategory === 'BUI' && item.sec !== 'BUI') return false;
-          else if (currentCategory === 'BUFF' && !(item.sec === 'BUFF' || item.sec === 'Buff')) return false;
-          else if (currentCategory === 'SHI' && !(item.sec === 'SHI' || item.sec === 'SIT')) return false;
-          else if (currentCategory === 'ADN' && !(item.sec === 'ADN' || item.sec === 'ADL' || item.sec === 'Adventure')) return false;
-          else if (currentCategory === 'ACH' && !(item.sec === 'ACH' || item.sec === 'ACL' || item.sec === 'ACD')) return false;
-          else if (currentCategory === 'UNI' && !(item.sec === 'UNI' || item.sec === 'MEL' || item.sec === 'Military')) return false;
-          else if (currentCategory === 'SKL' && item.sec !== 'SKL') return false;
-          else if (currentCategory === 'AVT' && !(item.sec === 'AVT' || item.sec === 'SPE')) return false;
-          else if (currentCategory === 'GUI' && item.sec !== 'GUI') return false;
-          else if (currentCategory === 'COL' && item.sec !== 'COL') return false;
-          else if (currentCategory !== item.sec) return false;
-        }
-
-        if (!query) return true;
-
-        // Query match across all fields: name, ru, en, safeName, path
-        const nameLower = (item.name || '').toLowerCase();
-        const ruLower = (item.ru || '').toLowerCase();
-        const enLower = (item.en || '').toLowerCase();
-        const safeLower = (item.safeName || '').toLowerCase();
-        const pathLower = (item.path || '').toLowerCase();
-        return nameLower.includes(query) || 
-               ruLower.includes(query) || 
-               enLower.includes(query) || 
-               safeLower.includes(query) || 
-               pathLower.includes(query);
-      });
-
-      // Sort exact matches to the top
-      if (query) {
-        filteredIcons.sort((a, b) => {
-          const aName = (a.name || '').toLowerCase();
-          const bName = (b.name || '').toLowerCase();
-          const aRu = (a.ru || '').toLowerCase();
-          const bRu = (b.ru || '').toLowerCase();
-
-          const aExact = aName === query || aRu === query;
-          const bExact = bName === query || bRu === query;
-          if (aExact && !bExact) return -1;
-          if (bExact && !aExact) return 1;
-
-          const aStart = aName.startsWith(query) || aRu.startsWith(query);
-          const bStart = bName.startsWith(query) || bRu.startsWith(query);
-          if (aStart && !bStart) return -1;
-          if (bStart && !aStart) return 1;
-
-          return 0;
+      // Register Service Worker for PWA and offline support
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then((reg) => {
+              console.log('[TSO Icon Finder] Service Worker registered with scope:', reg.scope);
+            })
+            .catch((err) => {
+              console.warn('[TSO Icon Finder] Service Worker registration skipped or failed:', err);
+            });
         });
-
-        // Automatically select the best match if typing
-        if (filteredIcons.length > 0) {
-          selectIcon(filteredIcons[0]);
-        }
       }
-
-      resultCountInfo.textContent = `Найдено: ${filteredIcons.length.toLocaleString('ru-RU')}`;
-      renderGallery();
-    }
-
-    function renderGallery() {
-      const total = filteredIcons.length;
-      const totalPages = Math.ceil(total / PAGE_SIZE) || 1;
-
-      if (currentPage > totalPages) currentPage = totalPages;
-      if (currentPage < 1) currentPage = 1;
-
-      const startIndex = (currentPage - 1) * PAGE_SIZE;
-      const endIndex = Math.min(startIndex + PAGE_SIZE, total);
-      const pageItems = filteredIcons.slice(startIndex, endIndex);
-
-      paginationMeta.textContent = total > 0 ? `Показано ${startIndex + 1}–${endIndex} из ${total}` : 'Ничего не найдено';
-      firstPageBtn.disabled = currentPage <= 1;
-      prevPageBtn.disabled = currentPage <= 1;
-      nextPageBtn.disabled = currentPage >= totalPages;
-      lastPageBtn.disabled = currentPage >= totalPages;
-      pageInput.max = totalPages;
-      pageInput.value = currentPage;
-      pageTotalDisplay.textContent = `из ${totalPages}`;
-
-      if (total === 0) {
-        galleryGrid.innerHTML = `
-          <div class="empty-state">
-            <div style="font-size:2rem; margin-bottom:8px;">🔍</div>
-            <div style="font-weight:600; font-size:1.1rem; margin-bottom:4px;">Иконка не найдена</div>
-            <div>Попробуйте изменить запрос или поискать по части слова</div>
-          </div>
-        `;
-        return;
-      }
-
-      galleryGrid.innerHTML = pageItems.map(item => {
-        const isSelected = selectedIcon && selectedIcon.name === item.name;
-        return `
-          <div class="icon-card ${isSelected ? 'selected' : ''}" data-name="${item.name}">
-            <div class="icon-card-thumb">
-              <img src="${item.src}" alt="${item.name}" loading="lazy">
-            </div>
-            <div class="icon-card-name" title="${item.name}">${item.name}</div>
-            <div class="icon-card-ru" title="${item.ru || ''}">${item.ru || item.secTitle || ''}</div>
-          </div>
-        `;
-      }).join('');
-
-      // Click card
-      galleryGrid.querySelectorAll('.icon-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-          e.preventDefault();
-          const name = card.dataset.name;
-          const found = allIcons.find(i => i.name === name);
-          if (found) {
-            selectIcon(found);
-            galleryGrid.querySelectorAll('.icon-card').forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-          }
-        });
-      });
-    }
-
-    function selectIcon(icon) {
-      selectedIcon = icon;
-      heroImg.src = icon.src;
-      panX = 0;
-      panY = 0;
-      updateZoom(false);
-      heroName.textContent = icon.name;
-      heroCategory.textContent = icon.secTitle || icon.sec || 'Иконка';
-      heroDimensions.textContent = `${icon.w || 24} × ${icon.h || 24} px`;
-      heroSize.textContent = `${(icon.size / 1024).toFixed(1)} КБ (${icon.size} Б)`;
-
-      if (icon.ru) {
-        heroRu.textContent = icon.ru;
-        heroRuRow.style.display = 'flex';
-      } else {
-        heroRuRow.style.display = 'none';
-      }
-
-      if (icon.en) {
-        heroEn.textContent = icon.en;
-        heroEnRow.style.display = 'flex';
-      } else {
-        heroEnRow.style.display = 'none';
-      }
-
-      if (icon.path) {
-        heroPath.textContent = icon.path;
-        heroPathRow.style.display = 'flex';
-      } else {
-        heroPathRow.style.display = 'none';
-      }
-    }
-
-    function downloadCurrentIcon() {
-      if (!selectedIcon) return;
-      const link = document.createElement('a');
-      link.href = selectedIcon.src;
-      link.download = `${selectedIcon.safeName || selectedIcon.name}.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      showToast(`Иконка "${link.download}" скачана!`);
-    }
-
-    async function copyCurrentImage() {
-      if (!selectedIcon) return;
-      try {
-        const res = await fetch(selectedIcon.src);
-        const blob = await res.blob();
-        await navigator.clipboard.write([
-          new ClipboardItem({ 'image/png': blob })
-        ]);
-        showToast(`Картинка "${selectedIcon.name}.png" скопирована в буфер!`);
-      } catch (err) {
-        // Fallback: copy image URL
-        try {
-          const fullUrl = new URL(selectedIcon.src, window.location.href).href;
-          await navigator.clipboard.writeText(fullUrl);
-          showToast(`Ссылка на иконку скопирована в буфер!`);
-        } catch (e) {
-          showToast(`Не удалось скопировать: ${err.message}`);
-        }
-      }
-    }
-
-    let toastTimer = null;
-    function showToast(msg) {
-      toastMessage.textContent = msg;
-      toast.classList.add('show');
-      if (toastTimer) clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2500);
     }
 
     // Launch

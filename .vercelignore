@@ -2,6 +2,7 @@
 .hash_cache
 docs/
 build_catalog.py
+generate_assets.py
 run.bat
 .git
 .gitignore
