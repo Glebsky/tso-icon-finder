@@ -1,0 +1,13 @@
+# Local Cache & Build Artifacts
+.hash_cache/
+.vercel/
+__pycache__/
+*.pyc
+*.pyo
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

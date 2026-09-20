@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TSO Icon Finder — Поиск и скачивание иконок</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-hover: #334155;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-hover: #0ea5e9;
+      --primary-rgb: 56, 189, 248;
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --gold: #f59e0b;
+      --danger: #ef4444;
+      --radius: 12px;
+      --shadow: 0 10px 25px -5px rgba(0,0,0,0.5), 0 8px 10px -6px rgba(0,0,0,0.5);
+    }
+
+    [data-theme="light"] {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-hover: #f8fafc;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--primary), #818cf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
+    }
+
+    .brand h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+
+    .brand span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-count {
+      background: rgba(var(--primary-rgb), 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(var(--primary-rgb), 0.3);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .btn-icon {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .btn-icon:hover {
+      background: var(--surface-hover);
+      border-color: var(--primary);
+    }
+
+    main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Search Section */
+    .search-box-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .search-input-group {
+      display: flex;
+      position: relative;
+      align-items: center;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      width: 22px;
+      height: 22px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 14px 48px 14px 48px;
+      font-size: 1.1rem;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.2);
+    }
+
+    .clear-btn {
+      position: absolute;
+      right: 14px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      display: none;
+    }
+    .clear-btn:hover { color: var(--text); background: var(--surface-hover); }
+
+    .search-hint {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .search-hint code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+    .search-hint code:hover {
+      text-decoration: underline;
+    }
+
+    /* Categories Tabs */
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 8px;
+      align-items: center;
+      padding-top: 2px;
+    }
+    .category-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      user-select: none;
+    }
+    .category-btn:hover {
+      color: var(--text);
+      border-color: var(--text-muted);
+      background: var(--surface-hover);
+    }
+    .category-btn.active {
+      background: var(--primary);
+      color: #000;
+      border-color: var(--primary);
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.25);
+    }
+    .category-btn .cat-count {
+      font-size: 0.72rem;
+      padding: 1px 6px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: inherit;
+      opacity: 0.85;
+      font-feature-settings: "tnum";
+    }
+    .category-btn.active .cat-count {
+      background: rgba(0, 0, 0, 0.18);
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    /* Custom Sleek Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* Content Layout */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Selected Icon Card */
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: sticky;
+      top: 5rem;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    .hero-card-header h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .preview-canvas-container {
+      background: #18181b;
+      background-image: 
+        linear-gradient(45deg, #27272a 25%, transparent 25%), 
+        linear-gradient(-45deg, #27272a 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #27272a 75%), 
+        linear-gradient(-45deg, transparent 75%, #27272a 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      height: 240px;
+      min-height: 240px;
+      max-height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      position: relative;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+    }
+    .preview-canvas-container:active {
+      cursor: grabbing;
+    }
+
+    .preview-image {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      transform-origin: center center;
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      display: block;
+      margin: 0 auto;
+      pointer-events: none;
+      user-select: none;
+      will-change: transform;
+    }
+
+    .zoom-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      position: relative;
+      z-index: 20;
+      flex-wrap: wrap;
+    }
+
+    .zoom-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .zoom-btn:hover { color: var(--text); border-color: var(--primary); }
+    .zoom-btn.active {
+      background: var(--primary);
+      color: #000;
+      border-color: var(--primary);
+    }
+
+    .icon-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.9rem;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .detail-label {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .detail-value {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-weight: 600;
+      word-break: break-all;
+      text-align: right;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-main {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+    .btn-main:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      border-color: var(--primary);
+    }
+
+    /* Gallery Section */
+    .gallery-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .gallery-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .gallery-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .gallery-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+      gap: 12px;
+    }
+
+    .icon-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      position: relative;
+    }
+    .icon-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .icon-card.selected {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary);
+      background: rgba(var(--primary-rgb), 0.05);
+    }
+
+    .icon-card-thumb {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.2);
+      border-radius: 6px;
+      padding: 4px;
+    }
+
+    .icon-card-thumb img {
+      max-width: 100%;
+      max-height: 100%;
+      image-rendering: pixelated;
+    }
+
+    .icon-card-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      word-break: break-word;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .icon-card-ru {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
+    .select-input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      outline: none;
+      cursor: pointer;
+    }
+    .select-input:focus {
+      border-color: var(--primary);
+    }
+
+    .page-size-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .page-jump {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .page-number-input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 58px;
+      padding: 5px 6px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      text-align: center;
+      outline: none;
+    }
+    .page-number-input:focus {
+      border-color: var(--primary);
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .page-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .page-btn:hover:not(:disabled) {
+      background: var(--surface-hover);
+      border-color: var(--primary);
+    }
+    .page-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .page-info {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 100;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .toast-success { border-left: 4px solid var(--accent); }
+
+    /* Empty state */
+    .empty-state {
+      padding: 3rem;
+      text-align: center;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      grid-column: 1 / -1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-icon">📦</div>
+      <div>
+        <h1>TSO Icon Finder</h1>
+        <span>Мини-приложение для поиска и скачивания иконок</span>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span class="badge-count" id="totalCountBadge">2 517 иконок</span>
+      <button class="btn-icon" id="themeToggle" title="Переключить тему">🌓</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Search Bar -->
+    <div class="search-box-wrapper">
+      <div class="search-input-group">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="Введите имя, тег или ID (например: DepositWood, Beer, IronSmelter, Хлеб)..."
+          autocomplete="off"
+          autofocus
+        >
+        <button id="clearBtn" class="clear-btn" title="Очистить">✕</button>
+      </div>
+
+      <div class="search-hint">
+        <div>
+          💡 Подсказка: можно вставлять XML прямо целиком: <code onclick="setSearch('DepositWood')">DepositWood</code>, <code onclick="setSearch('&lt;t id=&quot;Beer&quot; /&gt;')">&lt;t id="Beer" /&gt;</code>, <code onclick="setSearch('IronSmelter')">IronSmelter</code>, <code onclick="setSearch('General')">General</code>, <code onclick="setSearch('Хлеб')">Хлеб</code>
+        </div>
+        <div id="resultCountInfo">Показано: 0</div>
+      </div>
+
+      <!-- Categories -->
+      <div class="categories" id="categoryContainer">
+        <button class="category-btn active" data-cat="ALL">Все (2517)</button>
+        <button class="category-btn" data-cat="RES">Ресурсы & Залежи</button>
+        <button class="category-btn" data-cat="BUI">Здания</button>
+        <button class="category-btn" data-cat="SPE">Специалисты</button>
+        <button class="category-btn" data-cat="MEL">Войска</button>
+        <button class="category-btn" data-cat="SHI">Магазин & Товары</button>
+        <button class="category-btn" data-cat="Buff">Усилители</button>
+        <button class="category-btn" data-cat="ADL">Приключения</button>
+        <button class="category-btn" data-cat="DES">Предметы</button>
+        <button class="category-btn" data-cat="Other">Разное</button>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="content-grid">
+      
+      <!-- Left: Selected Icon Hero Preview -->
+      <div class="hero-card" id="heroCard">
+        <div class="hero-card-header">
+          <h2>🔍 Предпросмотр</h2>
+          <span class="badge-count" id="heroCategory">Ресурсы</span>
+        </div>
+
+        <div class="preview-canvas-container" title="Колёсико мыши: масштаб. Зажмите левую кнопку для перемещения. Двойной клик: сброс в центр.">
+          <img id="heroImg" class="preview-image" src="" alt="Icon Preview">
+        </div>
+
+        <div class="zoom-controls">
+          <span style="font-size:0.8rem; color:var(--text-muted); margin-right:4px;">Масштаб:</span>
+          <button class="zoom-btn" data-zoom="1">1x</button>
+          <button class="zoom-btn" data-zoom="2">2x</button>
+          <button class="zoom-btn active" data-zoom="3">3x</button>
+          <button class="zoom-btn" data-zoom="4">4x</button>
+          <button class="zoom-btn" data-zoom="6">6x</button>
+          <button class="zoom-btn" data-zoom="8">8x</button>
+        </div>
+
+        <div class="icon-details">
+          <div class="detail-row">
+            <span class="detail-label">XML Name / ID:</span>
+            <span class="detail-value" id="heroName" style="color:var(--primary);">DepositWood</span>
+          </div>
+          <div class="detail-row" id="heroRuRow">
+            <span class="detail-label">Перевод (RU):</span>
+            <span class="detail-value" id="heroRu" style="color:var(--accent);">Древесина</span>
+          </div>
+          <div class="detail-row" id="heroEnRow">
+            <span class="detail-label">Name (EN):</span>
+            <span class="detail-value" id="heroEn" style="color:var(--text);">Pine Tree</span>
+          </div>
+          <div class="detail-row" id="heroPathRow">
+            <span class="detail-label">Файл:</span>
+            <span class="detail-value" id="heroPath" style="font-size:0.75rem; word-break:break-all; opacity:0.85;">icons/resources/icon_wood.png</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Размер:</span>
+            <span class="detail-value" id="heroDimensions">26 × 25 px</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Вес PNG:</span>
+            <span class="detail-value" id="heroSize">940 Б</span>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-main" id="downloadBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Скачать PNG
+          </button>
+          <button class="btn-secondary" id="copyImgBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Скопировать картинку в буфер
+          </button>
+          <button class="btn-secondary" id="copyNameBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+            </svg>
+            Скопировать имя (ID)
+          </button>
+          <button class="btn-secondary" id="copyCodeBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            Скопировать код getImageTag
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Search Results / Gallery Grid -->
+      <div class="gallery-section">
+        <div class="gallery-header">
+          <div>
+            <div class="gallery-title" id="galleryTitle">Иконки</div>
+            <div class="gallery-meta" id="paginationMeta">Показано 1–60 из 2517</div>
+          </div>
+          <div class="page-size-selector">
+            <span style="font-size:0.85rem; color:var(--text-muted);">На странице:</span>
+            <select id="pageSizeSelect" class="select-input">
+              <option value="30">30</option>
+              <option value="60">60</option>
+              <option value="120">120</option>
+              <option value="240">240</option>
+              <option value="500">500</option>
+              <option value="99999">Все</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="pagination" id="paginationControls">
+          <button class="page-btn" id="firstPageBtn" title="Первая страница">« Первая</button>
+          <button class="page-btn" id="prevPageBtn" title="Предыдущая страница">‹ Назад</button>
+          <div class="page-jump">
+            <span>Стр.</span>
+            <input type="number" id="pageInput" min="1" max="1" value="1" class="page-number-input">
+            <span id="pageTotalDisplay">из 1</span>
+          </div>
+          <button class="page-btn" id="nextPageBtn" title="Следующая страница">Вперёд ›</button>
+          <button class="page-btn" id="lastPageBtn" title="Последняя страница">Последняя »</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="toast toast-success" id="toast">
+    <span id="toastMessage">Скачано!</span>
+  </div>
+
+  <!-- Icons Data Script -->
+  <script src="icons_data.js"></script>
+
+  <script>
+    // State
+    let allIcons = [];
+    let filteredIcons = [];
+    let selectedIcon = null;
+    let currentCategory = 'ALL';
+    let currentPage = 1;
+    let PAGE_SIZE = parseInt(localStorage.getItem('tso_icon_page_size'), 10) || 60;
+    let currentZoom = 3;
+
+    // Elements
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearBtn');
+    const resultCountInfo = document.getElementById('resultCountInfo');
+    const categoryContainer = document.getElementById('categoryContainer');
+    const galleryGrid = document.getElementById('galleryGrid');
+    const paginationControls = document.getElementById('paginationControls');
+    const firstPageBtn = document.getElementById('firstPageBtn');
+    const prevPageBtn = document.getElementById('prevPageBtn');
+    const nextPageBtn = document.getElementById('nextPageBtn');
+    const lastPageBtn = document.getElementById('lastPageBtn');
+    const pageInput = document.getElementById('pageInput');
+    const pageTotalDisplay = document.getElementById('pageTotalDisplay');
+    const pageSizeSelect = document.getElementById('pageSizeSelect');
+    const paginationMeta = document.getElementById('paginationMeta');
+    const galleryTitle = document.getElementById('galleryTitle');
+    const themeToggle = document.getElementById('themeToggle');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+
+    // Hero Elements
+    const heroImg = document.getElementById('heroImg');
+    const heroName = document.getElementById('heroName');
+    const heroRu = document.getElementById('heroRu');
+    const heroRuRow = document.getElementById('heroRuRow');
+    const heroEn = document.getElementById('heroEn');
+    const heroEnRow = document.getElementById('heroEnRow');
+    const heroPath = document.getElementById('heroPath');
+    const heroPathRow = document.getElementById('heroPathRow');
+    const heroCategory = document.getElementById('heroCategory');
+    const heroDimensions = document.getElementById('heroDimensions');
+    const heroSize = document.getElementById('heroSize');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const copyImgBtn = document.getElementById('copyImgBtn');
+    const copyNameBtn = document.getElementById('copyNameBtn');
+    const copyCodeBtn = document.getElementById('copyCodeBtn');
+
+    // Clean XML input if user pastes tag, e.g. <t id="Beer" text="Квас" /> or <Building name="IronSmelter">
+    function cleanXmlInput(text) {
+      if (!text) return '';
+      let clean = text.trim();
+      
+      // Match attribute like name="...", id="...", icon="...", iconfilename="..."
+      const attrMatch = clean.match(/(?:name|id|icon|iconfilename|type)\s*=\s*["']([^"']+)["']/i);
+      if (attrMatch) {
+        clean = attrMatch[1];
+      } else {
+        // Match <tag>Value</tag>
+        const tagMatch = clean.match(/<([a-zA-Z0-9_\-]+)>([^<]+)<\/\1>/);
+        if (tagMatch) {
+          clean = tagMatch[2].trim();
+        } else {
+          // Strip leading/trailing brackets, quotes, slashes
+          clean = clean.replace(/^[<"'\s]+|[>"'\s\/]+$/g, '');
+        }
+      }
+      // Remove trailing .png if user copied with file extension
+      clean = clean.replace(/\.png$/i, '');
+      return clean;
+    }
+
+    let panX = 0;
+    let panY = 0;
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+
+    function updateZoom(keepPan = false) {
+      if (!selectedIcon) return;
+      if (!keepPan) {
+        panX = 0;
+        panY = 0;
+      }
+      const baseW = selectedIcon.w || 24;
+      const baseH = selectedIcon.h || 24;
+      heroImg.style.width = baseW + 'px';
+      heroImg.style.height = baseH + 'px';
+      heroImg.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoom})`;
+    }
+
+    function goToPage(page) {
+      const totalPages = Math.ceil(filteredIcons.length / PAGE_SIZE) || 1;
+      if (page < 1) page = 1;
+      if (page > totalPages) page = totalPages;
+      currentPage = page;
+      renderGallery();
+
+      // Gently scroll gallery header into view ONLY if user has scrolled past it
+      const galleryHeader = document.querySelector('.gallery-header');
+      if (galleryHeader) {
+        const rect = galleryHeader.getBoundingClientRect();
+        if (rect.top < 0) {
+          galleryHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    // Initialize
+    function init() {
+      if (window.TSO_ICONS_DATA && Array.isArray(window.TSO_ICONS_DATA)) {
+        allIcons = window.TSO_ICONS_DATA;
+      } else {
+        galleryGrid.innerHTML = `<div class="empty-state">⚠️ Файл данных icons_data.js не найден или пуст. Убедитесь, что icons_data.js лежит рядом с icon_finder.html.</div>`;
+        return;
+      }
+
+      document.getElementById('totalCountBadge').textContent = `${allIcons.length.toLocaleString('ru-RU')} иконок`;
+
+      // Restore stored page size
+      if (pageSizeSelect) {
+        pageSizeSelect.value = String(PAGE_SIZE);
+        pageSizeSelect.addEventListener('change', () => {
+          PAGE_SIZE = parseInt(pageSizeSelect.value, 10) || 60;
+          localStorage.setItem('tso_icon_page_size', PAGE_SIZE);
+          currentPage = 1;
+          renderGallery();
+        });
+      }
+
+      // Select first icon as default
+      if (allIcons.length > 0) {
+        selectIcon(allIcons[0]);
+      }
+
+      // Render category buttons dynamically with counts
+      renderCategories();
+
+      // Filter
+      applyFilters();
+
+      // Events
+      searchInput.addEventListener('input', () => {
+        clearBtn.style.display = searchInput.value ? 'block' : 'none';
+        currentPage = 1;
+        applyFilters();
+      });
+
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        currentPage = 1;
+        applyFilters();
+        searchInput.focus();
+      });
+
+      categoryContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('.category-btn');
+        if (btn) {
+          document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentCategory = btn.dataset.cat;
+          currentPage = 1;
+          applyFilters();
+        }
+      });
+
+      // Pagination events
+      firstPageBtn.addEventListener('click', () => goToPage(1));
+      prevPageBtn.addEventListener('click', () => goToPage(currentPage - 1));
+      nextPageBtn.addEventListener('click', () => goToPage(currentPage + 1));
+      lastPageBtn.addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredIcons.length / PAGE_SIZE) || 1;
+        goToPage(totalPages);
+      });
+
+      pageInput.addEventListener('change', () => {
+        const val = parseInt(pageInput.value, 10);
+        if (!isNaN(val)) goToPage(val);
+        else pageInput.value = currentPage;
+      });
+
+      pageInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          const val = parseInt(pageInput.value, 10);
+          if (!isNaN(val)) goToPage(val);
+        }
+      });
+
+      // Zoom buttons
+      document.querySelectorAll('.zoom-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          document.querySelectorAll('.zoom-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentZoom = parseInt(btn.dataset.zoom, 10) || 3;
+          updateZoom(false);
+        });
+      });
+
+      // Mouse wheel zoom & drag pan inside preview container
+      const previewCanvas = document.querySelector('.preview-canvas-container');
+      if (previewCanvas) {
+        previewCanvas.addEventListener('wheel', (e) => {
+          e.preventDefault();
+          const zoomLevels = [1, 2, 3, 4, 6, 8];
+          let idx = zoomLevels.indexOf(currentZoom);
+          if (idx === -1) idx = 2;
+          if (e.deltaY < 0 && idx < zoomLevels.length - 1) {
+            idx++;
+          } else if (e.deltaY > 0 && idx > 0) {
+            idx--;
+          }
+          currentZoom = zoomLevels[idx];
+          document.querySelectorAll('.zoom-btn').forEach(b => {
+            b.classList.toggle('active', parseInt(b.dataset.zoom, 10) === currentZoom);
+          });
+          updateZoom(true);
+        }, { passive: false });
+
+        // Drag to pan zoomed icon
+        previewCanvas.addEventListener('mousedown', (e) => {
+          if (e.button !== 0) return;
+          isPanning = true;
+          startX = e.clientX - panX;
+          startY = e.clientY - panY;
+          heroImg.style.transition = 'none';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+          if (!isPanning) return;
+          panX = e.clientX - startX;
+          panY = e.clientY - startY;
+          heroImg.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoom})`;
+        });
+
+        window.addEventListener('mouseup', () => {
+          if (isPanning) {
+            isPanning = false;
+            heroImg.style.transition = 'transform 0.18s cubic-bezier(0.16, 1, 0.3, 1)';
+          }
+        });
+
+        // Double click to reset zoom & pan
+        previewCanvas.addEventListener('dblclick', () => {
+          panX = 0;
+          panY = 0;
+          currentZoom = 3;
+          document.querySelectorAll('.zoom-btn').forEach(b => {
+            b.classList.toggle('active', parseInt(b.dataset.zoom, 10) === currentZoom);
+          });
+          updateZoom(false);
+        });
+      }
+
+      // Actions
+      downloadBtn.addEventListener('click', downloadCurrentIcon);
+      copyImgBtn.addEventListener('click', copyCurrentImage);
+      copyNameBtn.addEventListener('click', () => {
+        if (selectedIcon) {
+          navigator.clipboard.writeText(selectedIcon.name);
+          showToast(`Имя "${selectedIcon.name}" скопировано!`);
+        }
+      });
+      copyCodeBtn.addEventListener('click', () => {
+        if (selectedIcon) {
+          const code = `getImageTag('${selectedIcon.name}', '24px')`;
+          navigator.clipboard.writeText(code);
+          showToast(`Код ${code} скопирован!`);
+        }
+      });
+
+      // Theme toggle
+      themeToggle.addEventListener('click', () => {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
+      });
+
+      // Keyboard shortcuts
+      window.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement !== searchInput && document.activeElement !== pageInput) {
+          e.preventDefault();
+          searchInput.focus();
+          searchInput.select();
+        } else if (e.key === 'Escape') {
+          if (searchInput.value) {
+            searchInput.value = '';
+            clearBtn.style.display = 'none';
+            applyFilters();
+          }
+        } else if (e.key === 'Enter' && document.activeElement === searchInput) {
+          if (filteredIcons.length > 0) {
+            selectIcon(filteredIcons[0]);
+            downloadCurrentIcon();
+          }
+        }
+      });
+    }
+
+    function setSearch(query) {
+      searchInput.value = query;
+      clearBtn.style.display = 'block';
+      currentPage = 1;
+      applyFilters();
+      searchInput.focus();
+    }
+
+    const categoryDefs = [
+      { id: 'ALL', title: 'Все' },
+      { id: 'BUI', title: 'Здания' },
+      { id: 'RES', title: 'Ресурсы' },
+      { id: 'BUFF', title: 'Усилители' },
+      { id: 'SHI', title: 'Магазин' },
+      { id: 'ACH', title: 'Достижения' },
+      { id: 'ADN', title: 'Приключения' },
+      { id: 'UNI', title: 'Войска' },
+      { id: 'SKL', title: 'Навыки' },
+      { id: 'AVT', title: 'Аватары' },
+      { id: 'GUI', title: 'Интерфейс' },
+      { id: 'COL', title: 'Коллекции' }
+    ];
+
+    function renderCategories() {
+      const catCounts = { ALL: allIcons.length };
+      for (const icon of allIcons) {
+        catCounts[icon.sec] = (catCounts[icon.sec] || 0) + 1;
+      }
+      categoryContainer.innerHTML = categoryDefs
+        .filter(cat => cat.id === 'ALL' || (catCounts[cat.id] && catCounts[cat.id] > 0))
+        .map(cat => `
+          <button class="category-btn ${currentCategory === cat.id ? 'active' : ''}" data-cat="${cat.id}">
+            ${cat.title} <span class="cat-count">${(catCounts[cat.id] || 0).toLocaleString('ru-RU')}</span>
+          </button>
+        `).join('');
+    }
+
+    function applyFilters() {
+      const rawQuery = searchInput.value.trim();
+      const query = cleanXmlInput(rawQuery).toLowerCase();
+
+      filteredIcons = allIcons.filter(item => {
+        // Category filter
+        if (currentCategory !== 'ALL') {
+          if (currentCategory === 'RES' && !(item.sec === 'RES' || item.sec === 'Deposit')) return false;
+          else if (currentCategory === 'BUI' && item.sec !== 'BUI') return false;
+          else if (currentCategory === 'BUFF' && !(item.sec === 'BUFF' || item.sec === 'Buff')) return false;
+          else if (currentCategory === 'SHI' && !(item.sec === 'SHI' || item.sec === 'SIT')) return false;
+          else if (currentCategory === 'ADN' && !(item.sec === 'ADN' || item.sec === 'ADL' || item.sec === 'Adventure')) return false;
+          else if (currentCategory === 'ACH' && !(item.sec === 'ACH' || item.sec === 'ACL' || item.sec === 'ACD')) return false;
+          else if (currentCategory === 'UNI' && !(item.sec === 'UNI' || item.sec === 'MEL' || item.sec === 'Military')) return false;
+          else if (currentCategory === 'SKL' && item.sec !== 'SKL') return false;
+          else if (currentCategory === 'AVT' && !(item.sec === 'AVT' || item.sec === 'SPE')) return false;
+          else if (currentCategory === 'GUI' && item.sec !== 'GUI') return false;
+          else if (currentCategory === 'COL' && item.sec !== 'COL') return false;
+          else if (currentCategory !== item.sec) return false;
+        }
+
+        if (!query) return true;
+
+        // Query match across all fields: name, ru, en, safeName, path
+        const nameLower = (item.name || '').toLowerCase();
+        const ruLower = (item.ru || '').toLowerCase();
+        const enLower = (item.en || '').toLowerCase();
+        const safeLower = (item.safeName || '').toLowerCase();
+        const pathLower = (item.path || '').toLowerCase();
+        return nameLower.includes(query) || 
+               ruLower.includes(query) || 
+               enLower.includes(query) || 
+               safeLower.includes(query) || 
+               pathLower.includes(query);
+      });
+
+      // Sort exact matches to the top
+      if (query) {
+        filteredIcons.sort((a, b) => {
+          const aName = (a.name || '').toLowerCase();
+          const bName = (b.name || '').toLowerCase();
+          const aRu = (a.ru || '').toLowerCase();
+          const bRu = (b.ru || '').toLowerCase();
+
+          const aExact = aName === query || aRu === query;
+          const bExact = bName === query || bRu === query;
+          if (aExact && !bExact) return -1;
+          if (bExact && !aExact) return 1;
+
+          const aStart = aName.startsWith(query) || aRu.startsWith(query);
+          const bStart = bName.startsWith(query) || bRu.startsWith(query);
+          if (aStart && !bStart) return -1;
+          if (bStart && !aStart) return 1;
+
+          return 0;
+        });
+
+        // Automatically select the best match if typing
+        if (filteredIcons.length > 0) {
+          selectIcon(filteredIcons[0]);
+        }
+      }
+
+      resultCountInfo.textContent = `Найдено: ${filteredIcons.length.toLocaleString('ru-RU')}`;
+      renderGallery();
+    }
+
+    function renderGallery() {
+      const total = filteredIcons.length;
+      const totalPages = Math.ceil(total / PAGE_SIZE) || 1;
+
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      const startIndex = (currentPage - 1) * PAGE_SIZE;
+      const endIndex = Math.min(startIndex + PAGE_SIZE, total);
+      const pageItems = filteredIcons.slice(startIndex, endIndex);
+
+      paginationMeta.textContent = total > 0 ? `Показано ${startIndex + 1}–${endIndex} из ${total}` : 'Ничего не найдено';
+      firstPageBtn.disabled = currentPage <= 1;
+      prevPageBtn.disabled = currentPage <= 1;
+      nextPageBtn.disabled = currentPage >= totalPages;
+      lastPageBtn.disabled = currentPage >= totalPages;
+      pageInput.max = totalPages;
+      pageInput.value = currentPage;
+      pageTotalDisplay.textContent = `из ${totalPages}`;
+
+      if (total === 0) {
+        galleryGrid.innerHTML = `
+          <div class="empty-state">
+            <div style="font-size:2rem; margin-bottom:8px;">🔍</div>
+            <div style="font-weight:600; font-size:1.1rem; margin-bottom:4px;">Иконка не найдена</div>
+            <div>Попробуйте изменить запрос или поискать по части слова</div>
+          </div>
+        `;
+        return;
+      }
+
+      galleryGrid.innerHTML = pageItems.map(item => {
+        const isSelected = selectedIcon && selectedIcon.name === item.name;
+        return `
+          <div class="icon-card ${isSelected ? 'selected' : ''}" data-name="${item.name}">
+            <div class="icon-card-thumb">
+              <img src="${item.src}" alt="${item.name}" loading="lazy">
+            </div>
+            <div class="icon-card-name" title="${item.name}">${item.name}</div>
+            <div class="icon-card-ru" title="${item.ru || ''}">${item.ru || item.secTitle || ''}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Click card
+      galleryGrid.querySelectorAll('.icon-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          e.preventDefault();
+          const name = card.dataset.name;
+          const found = allIcons.find(i => i.name === name);
+          if (found) {
+            selectIcon(found);
+            galleryGrid.querySelectorAll('.icon-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+          }
+        });
+      });
+    }
+
+    function selectIcon(icon) {
+      selectedIcon = icon;
+      heroImg.src = icon.src;
+      panX = 0;
+      panY = 0;
+      updateZoom(false);
+      heroName.textContent = icon.name;
+      heroCategory.textContent = icon.secTitle || icon.sec || 'Иконка';
+      heroDimensions.textContent = `${icon.w || 24} × ${icon.h || 24} px`;
+      heroSize.textContent = `${(icon.size / 1024).toFixed(1)} КБ (${icon.size} Б)`;
+
+      if (icon.ru) {
+        heroRu.textContent = icon.ru;
+        heroRuRow.style.display = 'flex';
+      } else {
+        heroRuRow.style.display = 'none';
+      }
+
+      if (icon.en) {
+        heroEn.textContent = icon.en;
+        heroEnRow.style.display = 'flex';
+      } else {
+        heroEnRow.style.display = 'none';
+      }
+
+      if (icon.path) {
+        heroPath.textContent = icon.path;
+        heroPathRow.style.display = 'flex';
+      } else {
+        heroPathRow.style.display = 'none';
+      }
+    }
+
+    function downloadCurrentIcon() {
+      if (!selectedIcon) return;
+      const link = document.createElement('a');
+      link.href = selectedIcon.src;
+      link.download = `${selectedIcon.safeName || selectedIcon.name}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast(`Иконка "${link.download}" скачана!`);
+    }
+
+    async function copyCurrentImage() {
+      if (!selectedIcon) return;
+      try {
+        const res = await fetch(selectedIcon.src);
+        const blob = await res.blob();
+        await navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': blob })
+        ]);
+        showToast(`Картинка "${selectedIcon.name}.png" скопирована в буфер!`);
+      } catch (err) {
+        // Fallback: copy image URL
+        try {
+          const fullUrl = new URL(selectedIcon.src, window.location.href).href;
+          await navigator.clipboard.writeText(fullUrl);
+          showToast(`Ссылка на иконку скопирована в буфер!`);
+        } catch (e) {
+          showToast(`Не удалось скопировать: ${err.message}`);
+        }
+      }
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      toastMessage.textContent = msg;
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Launch
+    init();
+  </script>
+</body>
+</html>

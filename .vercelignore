@@ -1,0 +1,7 @@
+# Build scripts and source documentation not needed for static hosting
+.hash_cache
+docs/
+build_catalog.py
+run.bat
+.git
+.gitignore
