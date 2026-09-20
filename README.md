@@ -1,58 +1,58 @@
 # TSO Icon Finder
 
-Мини-приложение для мгновенного поиска, предпросмотра и скачивания иконок The Settlers Online (TSO).
+A lightweight web application for instant search, high-res preview, and export of icons from **The Settlers Online (TSO)**.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FGlebsky%2Ftso-icon-finder)
 
-## Развёртывание на Vercel
+## Deployment on Vercel
 
-Проект полностью оптимизирован и готов к деплою на [Vercel](https://vercel.com):
-1. Импортируйте репозиторий `Glebsky/tso-icon-finder` в личный кабинет Vercel.
-2. Никаких настроек сборки (`Build Command` / `Output Directory`) менять не требуется — проект является статическим веб-приложением.
-3. В проект включён файл `vercel.json` с предустановленными заголовками кэширования для CDN (изображения кэшируются на 1 год с флагом `immutable`) и защитными заголовками.
-4. Служебные файлы сборки и кэши исключены через `.vercelignore`.
+The project is fully optimized and ready for immediate deployment on [Vercel](https://vercel.com):
+1. Import the repository `Glebsky/tso-icon-finder` in the Vercel Dashboard.
+2. No build settings (`Build Command` / `Output Directory`) need to be adjusted — the project is a standalone static web application.
+3. Includes `vercel.json` with pre-configured immutable CDN caching headers for all icon assets (`Cache-Control: public, max-age=31536000, immutable`) and recommended security headers.
+4. Intermediate build caches and raw documents are excluded via `.vercelignore` for fast, lightweight deployments well within Vercel's Hobby tier file limits.
 
-## Быстрый локальный запуск
-- Запустите двойным кликом файл **`run.bat`** (или просто откройте **`index.html`** в любом браузере).
-- Не требует установки серверов, Node.js или Python — работает полностью автономно в браузере.
+## Quick Local Start
+- Double-click **`run.bat`** (or simply open **`index.html`** in any web browser).
+- No web servers, Node.js, or Python installations required — runs entirely client-side in the browser.
 
-## Структура проекта
-- `index.html` (и `icon_finder.html`) — современный интерфейс с масштабированием, фильтрацией и поиском.
-- `icons_data.js` — оптимизированный каталог **7 882 иконок** с русскими и английскими названиями, категориями и размерами (~2.1 МБ).
-- `icons/` — папка со всеми отдельными `.png` файлами (более 8 000 файлов).
-- `vercel.json` — конфигурация заголовков и кэширования для хостинга Vercel.
-- `.vercelignore` — список исключений для быстрого деплоя на Vercel.
-- `.gitignore` — исключение кэша `.hash_cache` и системных файлов.
-- `build_catalog.py` — скрипт сборки и обновления каталога иконок.
-- `docs/` — исходные XML-конфигурации игры и декомпилированные скрипты клиента.
-- `run.bat` — скрипт быстрого запуска приложения в браузере.
+## Project Structure
+- `index.html` (and `icon_finder.html`) — Responsive UI with zoom controls, categories, fuzzy search, and pagination.
+- `icons_data.js` — Optimized catalog containing **7,882 icons** with Russian & English titles, categories, and dimension metadata (~2.1 MB).
+- `icons/` — Directory containing individual PNG files (8,000+ files).
+- `vercel.json` — Vercel routing, CDN caching, and security header configuration.
+- `.vercelignore` — Deployment exclusion list for Vercel.
+- `.gitignore` — Git exclusion rules for `.hash_cache/` and local environment files.
+- `build_catalog.py` — Python script for building and syncing the icon catalog from game client configs.
+- `docs/` — Original game XML configuration schemas and decompiled client scripts.
+- `run.bat` — Windows batch launcher for instant local viewing.
 
-## База иконок (7 882 шт.)
-- **Здания (BUI)**: 1 562 иконки (Пекарня, Домик лесника, Плавни, Казармы, Ратуша и все уровни/скины).
-- **Ресурсы и товары (RES)**: 1 454 иконки (Хлеб, Квас, Древесина, Гранит, Титан, Селитра, Самоцветы и др.).
-- **Магазин (SHI)**: 1 217 иконок (Пакеты товаров, декорации, наборы и сундуки).
-- **Достижения (ACH)**: 1 021 иконка.
-- **Усилители и баффы (BUFF)**: 889 иконок (Рыбное блюдо, Суши, Корзины, Зональные усилители).
-- **Приключения (ADN)**: 434 иконки (Карты, баннеры, тизеры).
-- **Аватары и специалисты (AVT)**: 409 иконок (Генералы, геологи, разведчики, NPC).
-- **Интерфейс (GUI)**: 409 иконок (Кнопки, индикаторы, флайауты, рамки).
-- **Войска и поселенцы (UNI)**: 362 иконки (Ополченцы, кавалерия, пушкари, разбойники).
-- **Навыки (SKL)**: 125 иконок (Дерево навыков геологов, разведчиков, генералов).
-- **Коллекции (COL)**: предметы коллекций и рецепты переработки.
+## Icon Database (7,882 items)
+- **Buildings (BUI)**: 1,562 icons (Bakery, Forester, Smelters, Barracks, Mayor's House, skins, levels, etc.).
+- **Resources & Goods (RES)**: 1,454 icons (Bread, Brew, Pinewood, Granite, Titanium, Saltpeter, Gems, etc.).
+- **Merchant Shop (SHI)**: 1,217 icons (Item packs, decorations, bundles, mystery boxes).
+- **Achievements (ACH)**: 1,021 icons.
+- **Buffs & Boosters (BUFF)**: 889 icons (Fish Platter, Sushi, Baskets, Zone buffs).
+- **Adventures (ADN)**: 434 icons (Adventure maps, banners, event teasers).
+- **Avatars & Specialists (AVT)**: 409 icons (Generals, Geologists, Explorers, NPCs).
+- **User Interface (GUI)**: 409 icons (Buttons, badges, frames, flyouts).
+- **Military Units & Settlers (UNI)**: 362 icons (Militia, Cavalry, Cannoneers, Bandits).
+- **Skills (SKL)**: 125 icons (Skill trees for Geologists, Explorers, Generals).
+- **Collections (COL)**: Collectibles and conversion recipes.
 
-## Возможности
-1. **Мгновенный поиск**:
-   - По имени из XML / ActionScript: `Bakery`, `Forester`, `Bread`, `DepositWood`, `ProductivityBuffLvl1`.
-   - По русскому названию: `Пекарня`, `Лесник`, `Хлеб`, `Квас`, `Золото`, `Рыбное блюдо`.
-   - По английскому названию: `Pinewood Forester`, `Fish Platter`, `Brew`.
-   - По прямому вводу куска XML: `<Building name="Bakery">`, `<t id="Beer" text="Квас" />`, `iconfilename="icon_bakery.png"`.
-   - По пути к ресурсу: `icons/buildings/icon_bakery.png`.
-2. **Скачивание и копирование**:
-   - Кнопка «Скачать PNG» (или клавиша `Enter`).
-   - Кнопка «Скопировать картинку в буфер» (для вставки через Ctrl+V в чаты/Photoshop/Figma).
-   - Кнопка «Скопировать имя (ID)» и «Скопировать код getImageTag».
-3. **Удобный просмотр**:
-   - Масштабирование от 1x до 8x с пиксельным рендером без размытия и поддержка зума колёсиком мыши.
-   - Выбор размера страницы: 30, 60, 120, 240, 500 или Все иконки на одной странице.
-   - Быстрый переход по номерам страниц.
-   - Тёмная и светлая темы оформления.
+## Features
+1. **Instant Search**:
+   - By XML / ActionScript ID: `Bakery`, `Forester`, `Bread`, `DepositWood`, `ProductivityBuffLvl1`.
+   - By Russian name: `Пекарня`, `Лесник`, `Хлеб`, `Квас`, `Золото`, `Рыбное блюдо`.
+   - By English name: `Pinewood Forester`, `Fish Platter`, `Brew`.
+   - By pasted XML snippets: `<Building name="Bakery">`, `<t id="Beer" text="Квас" />`, `iconfilename="icon_bakery.png"`.
+   - By resource file path: `icons/buildings/icon_bakery.png`.
+2. **Export & Copy**:
+   - "Download PNG" button (or press `Enter`).
+   - "Copy Image to Clipboard" button (paste directly via `Ctrl+V` into chats, Photoshop, Figma, etc.).
+   - "Copy Name (ID)" and "Copy getImageTag code".
+3. **Advanced Viewing**:
+   - Pixelated crisp zoom from 1x up to 8x with pan support and mouse wheel zoom.
+   - Configurable page sizes: 30, 60, 120, 240, 500 or "All icons" on a single page.
+   - Quick page jump navigation.
+   - Dark and Light theme toggle.
