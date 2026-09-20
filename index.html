@@ -1108,7 +1108,7 @@
         canvasTitle: 'Коліщатко миші: масштаб. Затисніть ліву кнопку для переміщення. Подвійний клік: скидання в центр.',
         zoomLabel: 'Масштаб:',
         xmlNameLabel: 'XML Name / ID:',
-        primaryNameLabel: 'Переклад (RU):',
+        primaryNameLabel: 'Назва (UK):',
         secondaryNameLabel: 'Name (EN):',
         filePathLabel: 'Файл:',
         dimensionsLabel: 'Розмір:',
@@ -1166,8 +1166,8 @@
         canvasTitle: 'Mausrad: Zoom. Ziehen zum Verschieben. Doppelklick: Zurücksetzen.',
         zoomLabel: 'Zoom:',
         xmlNameLabel: 'XML Name / ID:',
-        primaryNameLabel: 'Titel (EN):',
-        secondaryNameLabel: 'Übersetzung (RU):',
+        primaryNameLabel: 'Titel (DE):',
+        secondaryNameLabel: 'Name (EN):',
         filePathLabel: 'Datei:',
         dimensionsLabel: 'Maße:',
         fileSizeLabel: 'Dateigröße:',
@@ -1484,15 +1484,19 @@
 
         if (!query) return true;
 
-        // Query match across all fields: name, ru, en, safeName, path
+        // Query match across all fields: name, ru, en, de, uk, safeName, path
         const nameLower = (item.name || '').toLowerCase();
         const ruLower = (item.ru || '').toLowerCase();
         const enLower = (item.en || '').toLowerCase();
+        const deLower = (item.de || '').toLowerCase();
+        const ukLower = (item.uk || '').toLowerCase();
         const safeLower = (item.safeName || '').toLowerCase();
         const pathLower = (item.path || '').toLowerCase();
         return nameLower.includes(query) || 
                ruLower.includes(query) || 
                enLower.includes(query) || 
+               deLower.includes(query) || 
+               ukLower.includes(query) || 
                safeLower.includes(query) || 
                pathLower.includes(query);
       });
@@ -1506,14 +1510,18 @@
           const bRu = (b.ru || '').toLowerCase();
           const aEn = (a.en || '').toLowerCase();
           const bEn = (b.en || '').toLowerCase();
+          const aDe = (a.de || '').toLowerCase();
+          const bDe = (b.de || '').toLowerCase();
+          const aUk = (a.uk || '').toLowerCase();
+          const bUk = (b.uk || '').toLowerCase();
 
-          const aExact = aName === query || aRu === query || aEn === query;
-          const bExact = bName === query || bRu === query || bEn === query;
+          const aExact = aName === query || aRu === query || aEn === query || aDe === query || aUk === query;
+          const bExact = bName === query || bRu === query || bEn === query || bDe === query || bUk === query;
           if (aExact && !bExact) return -1;
           if (bExact && !aExact) return 1;
 
-          const aStart = aName.startsWith(query) || aRu.startsWith(query) || aEn.startsWith(query);
-          const bStart = bName.startsWith(query) || bRu.startsWith(query) || bEn.startsWith(query);
+          const aStart = aName.startsWith(query) || aRu.startsWith(query) || aEn.startsWith(query) || aDe.startsWith(query) || aUk.startsWith(query);
+          const bStart = bName.startsWith(query) || bRu.startsWith(query) || bEn.startsWith(query) || bDe.startsWith(query) || bUk.startsWith(query);
           if (aStart && !bStart) return -1;
           if (bStart && !aStart) return 1;
 
@@ -1566,13 +1574,17 @@
         const isSelected = selectedIcon && selectedIcon.name === item.name;
         // Localized card subtitle based on current language
         let subText = '';
-        if (currentLang === 'en' || currentLang === 'de') {
-          subText = item.en || item.ru || getCategoryTitle(item.sec) || '';
+        if (currentLang === 'en') {
+          subText = item.en || item.ru || item.name;
+        } else if (currentLang === 'de') {
+          subText = item.de || item.en || item.name;
+        } else if (currentLang === 'uk') {
+          subText = item.uk || item.ru || item.en || item.name;
         } else {
-          subText = item.ru || item.en || getCategoryTitle(item.sec) || '';
+          subText = item.ru || item.en || item.name;
         }
 
-        const cardTooltip = `${item.name}${item.en ? ' • ' + item.en : ''}${item.ru ? ' • ' + item.ru : ''}`;
+        const cardTooltip = `${item.name}${item.en ? ' • EN: ' + item.en : ''}${item.ru ? ' • RU: ' + item.ru : ''}${item.uk ? ' • UK: ' + item.uk : ''}${item.de ? ' • DE: ' + item.de : ''}`;
 
         return `
           <div class="icon-card ${isSelected ? 'selected' : ''}" data-name="${item.name}" title="${cardTooltip}">
@@ -1625,7 +1637,7 @@
       }
 
       // Title & Translation Rows
-      if (currentLang === 'en' || currentLang === 'de') {
+      if (currentLang === 'en') {
         lblPrimaryName.textContent = t.primaryNameLabel;
         heroPrimaryName.textContent = icon.en || icon.name;
         heroPrimaryRow.style.display = 'flex';
@@ -1637,8 +1649,32 @@
         } else {
           heroSecondaryRow.style.display = 'none';
         }
+      } else if (currentLang === 'de') {
+        lblPrimaryName.textContent = t.primaryNameLabel;
+        heroPrimaryName.textContent = icon.de || icon.en || icon.name;
+        heroPrimaryRow.style.display = 'flex';
+
+        if (icon.en && icon.en !== icon.de) {
+          lblSecondaryName.textContent = t.secondaryNameLabel;
+          heroSecondaryName.textContent = icon.en;
+          heroSecondaryRow.style.display = 'flex';
+        } else {
+          heroSecondaryRow.style.display = 'none';
+        }
+      } else if (currentLang === 'uk') {
+        lblPrimaryName.textContent = t.primaryNameLabel;
+        heroPrimaryName.textContent = icon.uk || icon.ru || icon.en || icon.name;
+        heroPrimaryRow.style.display = 'flex';
+
+        if (icon.en && icon.en !== icon.uk) {
+          lblSecondaryName.textContent = t.secondaryNameLabel;
+          heroSecondaryName.textContent = icon.en;
+          heroSecondaryRow.style.display = 'flex';
+        } else {
+          heroSecondaryRow.style.display = 'none';
+        }
       } else {
-        // ru or uk
+        // ru
         lblPrimaryName.textContent = t.primaryNameLabel;
         heroPrimaryName.textContent = icon.ru || icon.en || icon.name;
         heroPrimaryRow.style.display = 'flex';

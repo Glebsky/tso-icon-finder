@@ -3,6 +3,9 @@
 docs/
 build_catalog.py
 generate_assets.py
+enrich_loca.py
+fast_enrich.py
+.*cache*
 run.bat
 .git
 .gitignore
