@@ -18,8 +18,8 @@ The project is fully optimized and ready for immediate deployment on [Vercel](ht
 
 ## Project Structure
 - `index.html` (and `icon_finder.html`) — Responsive UI with zoom controls, categories, fuzzy search, and pagination.
-- `icons_data.js` — Optimized catalog containing **7,882 icons** with Russian & English titles, categories, and dimension metadata (~2.1 MB).
-- `icons/` — Directory containing individual PNG files (8,000+ files).
+- `icons_data.js` — Optimized catalog containing **9,496 icons** with Russian & English titles, categories, and dimension metadata (~2.7 MB).
+- `icons/` — Directory containing individual PNG files (9,500+ files).
 - `vercel.json` — Vercel routing, CDN caching, and security header configuration.
 - `.vercelignore` — Deployment exclusion list for Vercel.
 - `.gitignore` — Git exclusion rules for `.hash_cache/` and local environment files.
@@ -27,16 +27,16 @@ The project is fully optimized and ready for immediate deployment on [Vercel](ht
 - `docs/` — Original game XML configuration schemas and decompiled client scripts.
 - `run.bat` — Windows batch launcher for instant local viewing.
 
-## Icon Database (7,882 items)
+## Icon Database (9,496 items)
 - **Buildings (BUI)**: 1,562 icons (Bakery, Forester, Smelters, Barracks, Mayor's House, skins, levels, etc.).
-- **Resources & Goods (RES)**: 1,454 icons (Bread, Brew, Pinewood, Granite, Titanium, Saltpeter, Gems, etc.).
+- **User Interface (GUI)**: 1,510 icons (Close crosses, action buttons, toolbars, star menu tabs, mail, checkboxes, frames, widgets).
+- **Resources & Goods (RES)**: 1,451 icons (Bread, Brew, Pinewood, Granite, Titanium, Saltpeter, Gems, etc.).
 - **Merchant Shop (SHI)**: 1,217 icons (Item packs, decorations, bundles, mystery boxes).
-- **Achievements (ACH)**: 1,021 icons.
-- **Buffs & Boosters (BUFF)**: 889 icons (Fish Platter, Sushi, Baskets, Zone buffs).
-- **Adventures (ADN)**: 434 icons (Adventure maps, banners, event teasers).
-- **Avatars & Specialists (AVT)**: 409 icons (Generals, Geologists, Explorers, NPCs).
-- **User Interface (GUI)**: 409 icons (Buttons, badges, frames, flyouts).
-- **Military Units & Settlers (UNI)**: 362 icons (Militia, Cavalry, Cannoneers, Bandits).
+- **Achievements (ACH)**: 1,029 icons (Achievements and Facebook event badges).
+- **Buffs & Boosters (BUFF)**: 887 icons (Fish Platter, Sushi, Baskets, Zone buffs).
+- **Military Units & Settlers (UNI)**: 775 icons (Militia, Cavalry, Cannoneers, Bandits, battle unit icons, Settlers).
+- **Adventures (ADN)**: 476 icons (Adventure maps, banners, event teasers, difficulty skull icons).
+- **Avatars & Specialists (AVT)**: 464 icons (Generals, Geologists, Explorers, NPCs).
 - **Skills (SKL)**: 125 icons (Skill trees for Geologists, Explorers, Generals).
 - **Collections (COL)**: Collectibles and conversion recipes.
 

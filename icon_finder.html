@@ -7,7 +7,7 @@
   <!-- Primary Meta Tags & SEO -->
   <title>TSO Icon Finder — Search & Download The Settlers Online Icons</title>
   <meta name="title" content="TSO Icon Finder — Search & Download The Settlers Online Icons">
-  <meta name="description" id="metaDescription" content="Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 7,880+ Settlers Online icons: buildings, buffs, adventures, and resources.">
+  <meta name="description" id="metaDescription" content="Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 9,490+ Settlers Online icons: buildings, buffs, adventures, UI interfaces, and resources.">
   <meta name="keywords" content="The Settlers Online, TSO, icons, settlers online icons, tso assets, tso icon finder, tso database, game assets, settlers online wiki, die siedler online">
   <meta name="author" content="TSO Community">
   <meta name="theme-color" content="#0f172a">
@@ -18,13 +18,13 @@
   <meta property="og:url" content="https://tso-icon-finder.vercel.app/">
   <meta property="og:site_name" content="TSO Icon Finder">
   <meta property="og:title" id="ogTitle" content="TSO Icon Finder — Search & Download The Settlers Online Icons">
-  <meta property="og:description" id="ogDesc" content="Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 7,880+ Settlers Online icons.">
+  <meta property="og:description" id="ogDesc" content="Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 9,490+ Settlers Online icons.">
   <meta property="og:image" content="https://tso-icon-finder.vercel.app/og-image.png">
   <meta property="og:image:secure_url" content="https://tso-icon-finder.vercel.app/og-image.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="TSO Icon Finder — 7,880+ The Settlers Online Icons Catalog">
+  <meta property="og:image:alt" content="TSO Icon Finder — 9,490+ The Settlers Online Icons Catalog">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="ru_RU">
   <meta property="og:locale:alternate" content="uk_UA">
@@ -34,7 +34,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://tso-icon-finder.vercel.app/">
   <meta name="twitter:title" id="twTitle" content="TSO Icon Finder — Search & Download The Settlers Online Icons">
-  <meta name="twitter:description" id="twDesc" content="Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 7,880+ Settlers Online icons.">
+  <meta name="twitter:description" id="twDesc" content="Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 9,490+ Settlers Online icons.">
   <meta name="twitter:image" content="https://tso-icon-finder.vercel.app/og-image.png">
 
   <!-- Favicon & PWA App Icons -->
@@ -805,7 +805,7 @@
         <button class="lang-btn" data-lang="uk" title="Українська">🇺🇦 UK</button>
         <button class="lang-btn" data-lang="de" title="Deutsch">🇩🇪 DE</button>
       </div>
-      <span class="badge-count" id="totalCountBadge">7,882 icons</span>
+      <span class="badge-count" id="totalCountBadge">9,496 icons</span>
       <button class="btn-icon" id="themeToggle" title="Toggle theme">🌓</button>
     </div>
   </header>
@@ -831,7 +831,7 @@
 
       <div class="search-hint">
         <div id="searchHintText">
-          💡 Tip: you can paste raw XML tags directly: <code onclick="setSearch('DepositWood')">DepositWood</code>, <code onclick="setSearch('&lt;t id=&quot;Beer&quot; /&gt;')">&lt;t id="Beer" /&gt;</code>, <code onclick="setSearch('IronSmelter')">IronSmelter</code>, <code onclick="setSearch('General')">General</code>, <code id="searchTagBreadCode" onclick="setSearch('Bread')">Bread</code>
+          💡 Tip: you can paste raw XML tags directly: <code onclick="setSearch('DepositWood')">DepositWood</code>, <code onclick="setSearch('Close')">Close (Крестик)</code>, <code onclick="setSearch('IconToolbox')">IconToolbox</code>, <code onclick="setSearch('General')">General</code>, <code id="searchTagBreadCode" onclick="setSearch('Bread')">Bread</code>
         </div>
         <div id="resultCountInfo">Shown: 0</div>
       </div>
@@ -980,12 +980,13 @@
     const I18N = {
       en: {
         docTitle: 'TSO Icon Finder — Search & Download The Settlers Online Icons',
-        metaDesc: 'Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 7,880+ Settlers Online icons.',
+        metaDesc: 'Instant search, pixel-art zoom preview, and direct PNG / clipboard export of 9,490+ Settlers Online icons.',
         brandSubtitle: 'Instant search, high-res preview, and icon download',
         totalIcons: (n) => `${n.toLocaleString('en-US')} icons`,
         searchPlaceholder: 'Enter name, tag, or ID (e.g. DepositWood, Beer, IronSmelter, Bread)...',
         clearTitle: 'Clear',
         searchHintText: '💡 Tip: you can paste raw XML tags directly:',
+        searchTagClose: 'Close (Cross)',
         searchTagBread: 'Bread',
         foundCount: (n) => `Found: ${n.toLocaleString('en-US')}`,
         heroTitle: '🔍 Preview',
@@ -1038,12 +1039,13 @@
       },
       ru: {
         docTitle: 'TSO Icon Finder — Поиск и скачивание иконок The Settlers Online',
-        metaDesc: 'Мгновенный поиск, попиксельный зум и экспорт более 7 880 иконок The Settlers Online: здания, усилители, приключения и ресурсы.',
+        metaDesc: 'Мгновенный поиск, попиксельный зум и экспорт более 9 490 иконок The Settlers Online: здания, усилители, приключения, интерфейс и ресурсы.',
         brandSubtitle: 'Мини-приложение для поиска и скачивания иконок',
         totalIcons: (n) => `${n.toLocaleString('ru-RU')} иконок`,
-        searchPlaceholder: 'Введите имя, тег или ID (например: DepositWood, Beer, IronSmelter, Хлеб)...',
+        searchPlaceholder: 'Введите имя, тег или ID (например: DepositWood, Beer, IronSmelter, Хлеб, Крестик)...',
         clearTitle: 'Очистить',
-        searchHintText: '💡 Подсказка: можно вставлять XML прямо целиком:',
+        searchHintText: '💡 Подсказка: можно вставлять XML прямо целиком или искать элементы интерфейса:',
+        searchTagClose: 'Крестик (Close)',
         searchTagBread: 'Хлеб',
         foundCount: (n) => `Найдено: ${n.toLocaleString('ru-RU')}`,
         heroTitle: '🔍 Предпросмотр',
@@ -1096,12 +1098,13 @@
       },
       uk: {
         docTitle: 'TSO Icon Finder — Пошук та завантаження іконок The Settlers Online',
-        metaDesc: 'Швидкий пошук, попіксельний зум та прямий експорт понад 7 880 іконок The Settlers Online: будівлі, підсилювачі, пригоди та ресурси.',
+        metaDesc: 'Швидкий пошук, попіксельний зум та прямий експорт понад 9 490 іконок The Settlers Online: будівлі, підсилювачі, пригоди та ресурси.',
         brandSubtitle: 'Міні-додаток для пошуку та завантаження іконок',
         totalIcons: (n) => `${n.toLocaleString('uk-UA')} іконок`,
-        searchPlaceholder: 'Введіть назву, тег або ID (наприклад: DepositWood, Beer, IronSmelter, Хліб)...',
+        searchPlaceholder: 'Введіть назву, тег або ID (наприклад: DepositWood, Beer, IronSmelter, Хліб, Хрестик)...',
         clearTitle: 'Очистити',
         searchHintText: '💡 Підказка: можна вставляти XML прямо цілком:',
+        searchTagClose: 'Хрестик (Close)',
         searchTagBread: 'Хліб',
         foundCount: (n) => `Знайдено: ${n.toLocaleString('uk-UA')}`,
         heroTitle: '🔍 Попередній перегляд',
@@ -1146,7 +1149,7 @@
           ACH: 'Досягнення',
           ADN: 'Пригоди',
           UNI: 'Війська',
-          SKL: 'Навички',
+          SKL: 'Навычки',
           AVT: 'Аватари',
           GUI: 'Інтерфейс',
           COL: 'Колекції'
@@ -1154,12 +1157,13 @@
       },
       de: {
         docTitle: 'TSO Icon Finder — Suche & Download von The Settlers Online Icons',
-        metaDesc: 'Sofortige Suche, pixelgenauer Zoom und PNG-Export von über 7.880 Siedler Online-Icons: Gebäude, Förderungen, Abenteuer und Rohstoffe.',
+        metaDesc: 'Sofortige Suche, pixelgenauer Zoom und PNG-Export von über 9.490 Siedler Online-Icons: Gebäude, Förderungen, Abenteuer und Rohstoffe.',
         brandSubtitle: 'Mini-App für blitzschnelle Suche, Vorschau und Download von Icons',
         totalIcons: (n) => `${n.toLocaleString('de-DE')} Icons`,
         searchPlaceholder: 'Name, Tag oder ID eingeben (z. B. DepositWood, Beer, IronSmelter, Brot)...',
         clearTitle: 'Löschen',
         searchHintText: '💡 Tipp: Sie können reine XML-Tags direkt einfügen:',
+        searchTagClose: 'Close (Kreuz)',
         searchTagBread: 'Brot',
         foundCount: (n) => `Gefunden: ${n.toLocaleString('de-DE')}`,
         heroTitle: '🔍 Vorschau',
@@ -1426,7 +1430,7 @@
       clearBtn.title = t.clearTitle;
 
       searchHintText.innerHTML = `
-        ${t.searchHintText} <code onclick="setSearch('DepositWood')">DepositWood</code>, <code onclick="setSearch('&lt;t id=&quot;Beer&quot; /&gt;')">&lt;t id="Beer" /&gt;</code>, <code onclick="setSearch('IronSmelter')">IronSmelter</code>, <code onclick="setSearch('General')">General</code>, <code onclick="setSearch('${t.searchTagBread}')">${t.searchTagBread}</code>
+        ${t.searchHintText} <code onclick="setSearch('DepositWood')">DepositWood</code>, <code onclick="setSearch('Close')">${t.searchTagClose || 'Close'}</code>, <code onclick="setSearch('IconToolbox')">IconToolbox</code>, <code onclick="setSearch('General')">General</code>, <code onclick="setSearch('${t.searchTagBread}')">${t.searchTagBread}</code>
       `;
 
       heroCardTitle.textContent = t.heroTitle;
